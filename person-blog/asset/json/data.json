@@ -1,0 +1,188 @@
+[
+  {
+    "id": "home",
+    "title": "我的技术栈",
+    "items": [
+      {
+        "image": "./asset/img/react.jpg",
+        "alt": "react",
+        "title": "react",
+        "description": "React",
+        "link": "https://react.dev/"
+      },
+      {
+        "image": "./asset/img/vue.png",
+        "alt": "vue",
+        "title": "vue",
+        "description": "Vue.js",
+        "link": "https://vuejs.org/"
+      },
+      {
+        "image": "./asset/img/typescript.jpg",
+        "alt": "typescript",
+        "title": "TypeScript",
+        "description": "TypeScript",
+        "link": "https://www.typescriptlang.org/"
+      },
+      {
+        "image": "./asset/img/node.png",
+        "alt": "nodejs",
+        "title": "Node.js",
+        "description": "Node.js",
+        "link": "https://nodejs.org/"
+      },
+      {
+        "image": "./asset/img/webpack.png",
+        "alt": "webpack",
+        "title": "webpack",
+        "description": "Webpack",
+        "link": "https://webpack.js.org/"
+      },
+      {
+        "image": "./asset/img/git.jpg",
+        "alt": "git",
+        "title": "git",
+        "description": "Git",
+        "link": "https://git-scm.com/"
+      },
+      {
+        "image": "./asset/img/docker.png",
+        "alt": "docker",
+        "title": "docker",
+        "description": "Docker",
+        "link": "https://www.docker.com/"
+      },
+      {
+        "image": "./asset/img/mongodb.png",
+        "alt": "mongodb",
+        "title": "MongoDB",
+        "description": "MongoDB",
+        "link": "https://www.mongodb.com/"
+      }
+    ]
+  },
+  {
+    "id": "hobby",
+    "title": "我的爱好",
+    "items": [
+      {
+        "image": "./asset/img/photography.jpg",
+        "alt": "photography",
+        "title": "photography",
+        "description": "摄影",
+        "link": "https://www.instagram.com/explore/tags/photography/"
+      },
+      {
+        "image": "./asset/img/guitar.jpg",
+        "alt": "guitar",
+        "title": "guitar",
+        "description": "吉他",
+        "link": "https://www.ultimate-guitar.com/"
+      },
+      {
+        "image": "./asset/img/hiking.jpg",
+        "alt": "hiking",
+        "title": "hiking",
+        "description": "徒步",
+        "link": "https://www.alltrails.com/"
+      },
+      {
+        "image": "./asset/img/cooking.jpg",
+        "alt": "cooking",
+        "title": "cooking",
+        "description": "烹饪",
+        "link": "https://www.allrecipes.com/"
+      },
+      {
+        "image": "./asset/img/reading.jpg",
+        "alt": "reading",
+        "title": "reading",
+        "description": "阅读",
+        "link": "https://www.goodreads.com/"
+      },
+      {
+        "image": "./asset/img/gaming.jpg",
+        "alt": "gaming",
+        "title": "gaming",
+        "description": "电子游戏",
+        "link": "https://store.steampowered.com/"
+      },
+      {
+        "image": "./asset/img/travel.jpg",
+        "alt": "travel",
+        "title": "travel",
+        "description": "旅行",
+        "link": "https://www.tripadvisor.com/"
+      },
+      {
+        "image": "./asset/img/painting.jpg",
+        "alt": "painting",
+        "title": "painting",
+        "description": "绘画",
+        "link": "https://www.deviantart.com/"
+      }
+    ]
+  },
+  {
+    "id": "demo",
+    "title": "我的作品",
+    "items": [
+      {
+        "image": "./asset/img/ecommerce.jpg",
+        "alt": "ecommerce",
+        "title": "ecommerce",
+        "description": "电商平台",
+        "link": "https://example.com/ecommerce"
+      },
+      {
+        "image": "./asset/img/blog.jpg",
+        "alt": "blog",
+        "title": "blog",
+        "description": "个人博客系统",
+        "link": "https://example.com/blog"
+      },
+      {
+        "image": "./asset/img/dashboard.jpg",
+        "alt": "dashboard",
+        "title": "dashboard",
+        "description": "数据可视化面板",
+        "link": "https://example.com/dashboard"
+      },
+      {
+        "image": "./asset/img/chat.jpg",
+        "alt": "chat",
+        "title": "chat",
+        "description": "实时聊天应用",
+        "link": "https://example.com/chat"
+      },
+      {
+        "image": "./asset/img/todo.jpg",
+        "alt": "todo",
+        "title": "todo",
+        "description": "任务管理应用",
+        "link": "https://example.com/todo"
+      },
+      {
+        "image": "./asset/img/weather.jpg",
+        "alt": "weather",
+        "title": "weather",
+        "description": "天气预报应用",
+        "link": "https://example.com/weather"
+      },
+      {
+        "image": "./asset/img/portfolio.jpg",
+        "alt": "portfolio",
+        "title": "portfolio",
+        "description": "个人作品集网站",
+        "link": "https://example.com/portfolio"
+      },
+      {
+        "image": "./asset/img/recipe.jpg",
+        "alt": "recipe",
+        "title": "recipe",
+        "description": "食谱分享平台",
+        "link": "https://example.com/recipe"
+      }
+    ]
+  }
+]
