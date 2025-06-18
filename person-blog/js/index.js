@@ -12,7 +12,7 @@ async function renderMainContent() {
   }
 
   // 获取数据
-  const res = await fetch("/asset/json/data.json");
+  const res = await fetch("./asset/json/data.json");
   if (!res.ok) {
     console.error("数据加载失败:", res.statusText);
     return;
