@@ -1,18 +1,16 @@
 class Danmaku {
-  minFontsize = 16; // 最小字体大小
-  maxFontsize = 36; // 最大字体大小
-
-  constructor(text, time, canvasWidth, canvasHeight) {
+  constructor(text, time, trackIndex = 0) {
     this.text = text;
     this.time = time;
     this.x = canvasWidth;
-    this.y = Math.random() * (canvasHeight - 30) + 20; // 避免超出顶部和底部
-    this.speed = 2; // 弹幕速度
+    this.y = trackIndex * trackHeight + marginTop; // 避免超出顶部和底部
+    this.speed = 100; // 弹幕速度
     this.color = this.getRandomFontColor(); // 随机颜色
     this.opacity = 1;
-    this.canvasWidth = canvasWidth;
     this.fontfamily = "sans-serif";
-    this.fontSize = this.getRandomFontSize(this.minFontsize, this.maxFontsize);
+    this.fontSize = this.getRandomFontSize(minFontsize, maxFontsize);
+
+    this.trackIndex = trackIndex; // 轨道索引
   }
 
   getRandomFontSize(min, max) {
@@ -28,9 +26,13 @@ class Danmaku {
     );
   }
 
-  update() {
-    this.x -= this.speed;
-    if (this.x < -300) this.opacity = 0;
+  update(currentTime) {
+    this.x = canvasWidth - this.speed * (currentTime - this.time); // 更新弹幕位置
+
+    // 如果弹幕超出画布，则将其移除
+    if (this.x < 0) {
+      this.opacity = 0; // 设置透明度为0，表示弹幕已消失
+    }
   }
 
   draw(ctx) {

@@ -4,26 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>弹幕墙</title>
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
     <div class="danmaku-container">
-      <video id="video" src="./asset/video/demo.mp4" controls width="800" height="450" class="danmaku-video"></video>
+      <video
+        id="video"
+        src="./asset/video/demo.mp4"
+        controls
+        width="800"
+        height="450"
+        class="danmaku-video"
+      ></video>
       <div class="danmaku-opration">
         <div class="danmaku-info">
-            <span>已有3000条弹幕来袭！</span>
+          将有
+          <span class="danmaku-count"></span>
+          条弹幕来袭
         </div>
         <div class="danmaku-switch">
-            <label class="switch">
-                <input type="checkbox" id="danmaku-switch" checked />
-                <span class="slider round"></span>
-            </label>
-            <span>开启弹幕</span>
+          <label class="switch">
+            <input type="checkbox" id="danmaku-switch" checked />
+            <span class="slider round"></span>
+          </label>
+          <span>开启弹幕</span>
         </div>
         <div class="danmaku-input">
-            <input type="text" id="danmaku-input" placeholder="输入弹幕内容" />
-            <button id="send-danmaku">发送</button>
-        </div>      
+          <input type="text" id="danmaku-input" placeholder="输入弹幕内容" />
+          <button id="send-danmaku">发送</button>
+        </div>
       </div>
       <canvas
         id="danmaku-canvas"
@@ -33,7 +42,8 @@
       ></canvas>
     </div>
   </body>
+  <script src="./js/constants.js"></script>
   <script src="./js/danmaku.js"></script>
   <script src="./js/danmakuManager.js"></script>
   <script src="./js/index.js"></script>
-  </html>
+</html>
