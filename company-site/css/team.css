@@ -19,6 +19,10 @@
   gap: 32px;
 }
 
+.team .content .header.show {
+  animation: SlideInRight 1s ease-in-out forwards;
+}
+
 .team .content .header .shadow-text {
   position: absolute;
   top: 50px;
@@ -48,25 +52,36 @@
   object-fit: cover;
 }
 
+.team .content .group .item .show{
+  animation: FadeIn 0.5s ease-in-out forwards;
+}
+
+.team .content .group .item img:hover {
+  transform: scale(1.1);
+}
+
 .team .content .group .item .description {
-    position: absolute;
-    left: 187px;
-    bottom: 108px;
-    color: #fff;
-    text-align: center;
+  position: absolute;
+  left: 187px;
+  bottom: 108px;
+  color: #fff;
+  text-align: center;
+}
+
+.team .content .group .item .description.show {
+  animation: FadeIn 1s ease-in-out forwards;
 }
 
 .team .content .group .item .description .name {
-    font-size: 48px;
-    margin-bottom: 24px;
+  font-size: 48px;
+  margin-bottom: 24px;
 }
 
 .team .content .group .item .description .subtitle {
-    font-size: 20px;
-    margin-bottom: 54px;
+  font-size: 20px;
+  margin-bottom: 54px;
 }
 
 .team .content .group .item .description .more {
-    font-size: 20px;
+  font-size: 20px;
 }
-

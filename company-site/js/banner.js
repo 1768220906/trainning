@@ -31,7 +31,7 @@ let slides = null; // 获取所有slides
 let dots = null; // 获取所有dots
 
 // 自动轮播
-const autoSlideInterval = 3000; // 自动轮播间隔时间
+const autoSlideInterval = 5000; // 自动轮播间隔时间
 const slideCount = data.length; // 轮播图片count
 let currentSlide = 0;
 let timer = null;

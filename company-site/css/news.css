@@ -20,6 +20,10 @@
   gap: 32px;
 }
 
+.news .content .header.show {
+  animation: SlideInRight 1s ease-in-out forwards;
+}
+
 .news .content .header .shadow-text {
   position: absolute;
   top: 50px;
@@ -41,19 +45,29 @@
 }
 
 .news-list .item {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .news-list .item .cover {
   width: 348px;
   height: 506px;
+  overflow: hidden;
+}
+
+.news-list .item .cover .show {
+  animation: FadeIn 0.5s ease-in-out forwards;
 }
 
 .news-list .item .cover img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+}
+
+.news-list .item .cover img:hover {
+  transform: scale(1.1);
 }
 
 .news-list .item .title {
@@ -66,4 +80,8 @@
   font-size: 14px;
   color: #fff;
   line-height: 28px;
+}
+
+.news-list .item .title.show,.text.show{
+  animation: SlideInRight 0.5s ease-in-out forwards;
 }
