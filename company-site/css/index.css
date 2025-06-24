@@ -15,87 +15,107 @@
   width: 100%;
 }
 
-.carousel {
-  position: relative;
-  width: 100%;
-  height: 600px;
-  overflow: hidden;
+.text-shadow {
+  text-shadow: 2px 2px 2px #000;
 }
 
-.slides {
-  position: relative;
-  width: 100%;
-  height: 100%;
+.text-border {
+  font-size: 128px;
+  color: #f6f6f6;
+  -webkit-text-stroke: 1px #d9d9d9;
 }
 
-.slide {
+.line {
+  width: 128px;
+  height: 6px;
+  background-color: #ff350d;
+}
+
+.header {
+  width: 100%;
+  color: #fff;
+  padding: 32px 48px;
+
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  z-index: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.slide.active {
-  opacity: 1;
-  z-index: 1;
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-.slide img {
-  width: 100%;
-  height: 100%;
+.header .logo img {
+  width: 36px;
+  height: 36px;
   object-fit: cover;
 }
 
-.slide .description {
-  width: 78%;
+.header .logo .text {
+  font-size: 20px;
+}
+
+.header .nav {
+  display: flex;
+  align-items: center;
+}
+
+.header .nav .item {
+  margin-right: 88px;
+  position: relative;
+}
+
+.header .nav .active::after{
+  content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  background-color: #FF350D;
+  width: 100%;
+  height: 2px;
+  left: 0;
+  bottom: -8px;
+}
+
+.footer {
+  width: 100%;
+  height: 218px;
+  background-color: #ff350d;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+
+  padding: 48px;
+}
+
+.footer .info {
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
+
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  gap: 128px;
+}
+
+.footer .copyright {
+  display: flex;
   align-items: center;
-}
-
-.slide .description .title {
-  font-size: 80px;
-  margin-bottom: 20px;
-}
-
-.slide .description .subtitle {
-  font-size: 36px;
-}
-
-.dots {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
+  color: #fff;
   gap: 12px;
-  align-items: center;
-  z-index: 2;
 }
 
-.dot {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: #ccc;
+.footer .copyright .qr {
+  width: 50px;
+  height: 50px;
 }
-
-.dot.active {
-  background-color: #fff;
-}
-
-.text-shadow {
-  text-shadow: 2px 2px 2px #000;
+.footer .copyright .qr img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
