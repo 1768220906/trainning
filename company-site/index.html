@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="./css/team.css" />
     <link rel="stylesheet" href="./css/news.css" />
     <link rel="stylesheet" href="./css/news-list.css" />
+    <link rel="stylesheet" href="./css/pagination.css" />
+    <link rel="stylesheet" href="./css/about.css" />
+    <script src="http://api.map.baidu.com/api?type=webgl&v=1.0&ak=930UdH8htkv9OKEZHfDgsxdurdtfqozY"></script>
   </head>
   <body>
     <div class="container">
@@ -20,13 +23,13 @@
           <span class="text">企业站</span>
         </div>
         <div class="nav">
-          <div class="item active">首页</div>
-          <div class="item">新闻列表页</div>
-          <div class="item">关于我们</div>
+          <div class="item active" data-target="home">首页</div>
+          <div class="item" data-target="news">新闻列表页</div>
+          <div class="item" data-target="about">关于我们</div>
         </div>
       </div>
       <div class="content">
-        <div class="home">
+        <div class="home show" id="nav-content">
           <!-- Banner -->
           <div class="carousel">
             <div class="slides"></div>
@@ -83,7 +86,7 @@
           <!-- 团队介绍 -->
           <div class="team">
             <div class="content">
-              <div class="header target">
+              <div class="top target">
                 <div class="shadow-text text-border">Team to introduce</div>
                 <div class="title">团队介绍</div>
                 <div class="line"></div>
@@ -128,8 +131,10 @@
           <!-- 新闻动态 -->
           <div class="news">
             <div class="content">
-              <div class="header target">
-                <div class="shadow-text">news and trends</div>
+              <div class="moduleTitle target">
+                <div class="text-border background-text shadow-text">
+                  news and trends
+                </div>
                 <div class="title">新闻动态</div>
                 <div class="line"></div>
               </div>
@@ -183,76 +188,181 @@
             </div>
           </div>
         </div>
-        <div class="news-list current">
-          <div class="top">
-            <div class="text-border background-text">News list page</div>
-            <div class="title">新闻列表页</div>
+        <div class="news-list" id="nav-content">
+          <div class="all show">
+            <div class="moduleTitle">
+              <div class="text-border background-text">News list page</div>
+              <div class="title">新闻列表页</div>
+              <div class="line"></div>
+            </div>
+            <div class="list">
+              <div class="item">
+                <div class="cover">
+                  <img src="./asset/news/new1.png" alt="" />
+                </div>
+                <div class="title">
+                  2022百度AI大会前夕，解读百度大脑的半年“豹变”
+                </div>
+                <div class="text">
+                  Facebook为未来的VR社交打造了一款逼真的虚拟头像系统，该系统的特点是，利用数百颗摄像头对人脸进行动作捕捉，并能生成与人脸相似度很高的虚拟头像，这些头像还能模仿人脸的大量表情。
+                </div>
+              </div>
+              <div class="item">
+                <div class="cover">
+                  <img src="./asset/news/new2.jpg" alt="" />
+                </div>
+                <div class="title">
+                  创投早报｜美国商业化核聚变创企获投；音乐版权公司完成融资
+                </div>
+                <div class="text">
+                  举办第六届中华印制大奖颁奖典礼、亚洲印刷展览联盟会议、国家主题日等多场专业、先进、丰富的同期活动，全面把握产业趋势与动态，共同探讨印刷业现状和未来。
+                </div>
+              </div>
+              <div class="item">
+                <div class="cover">
+                  <img src="./asset/news/new3.jpg" alt="" />
+                </div>
+                <div class="title">【千龙网】广告行业标准指导性意见将出台</div>
+                <div class="text">
+                  国际印刷工业发展论坛由中国印刷及设备器材工业协会主办，始创于2005年，四年一届，已成功举办三届，每届论坛选择5-6个发达国家和5-6个发展中国家印刷协会的主席或总裁发表演讲
+                </div>
+              </div>
+              <div class="item">
+                <div class="cover">
+                  <img src="./asset/news/new4.jpg" alt="" />
+                </div>
+                <div class="title">
+                  支持触觉反馈，Manus VR推出全新Prime VR手套
+                </div>
+                <div class="text">
+                  第三届国际印刷工业发展论坛（Forum-PI
+                  2013）于2013年5月13日在北京举行，主办方邀请了来自中国、美国、德国、英国、意大利、日本、澳大利亚、俄罗斯、印度、印尼、南非、巴西、
+                </div>
+              </div>
+              <div class="item">
+                <div class="cover">
+                  <img src="./asset/news/new1.png" alt="" />
+                </div>
+                <div class="title">
+                  2022百度AI大会前夕，解读百度大脑的半年“豹变”
+                </div>
+                <div class="text">
+                  Facebook为未来的VR社交打造了一款逼真的虚拟头像系统，该系统的特点是，利用数百颗摄像头对人脸进行动作捕捉，并能生成与人脸相似度很高的虚拟头像，这些头像还能模仿人脸的大量表情。
+                </div>
+              </div>
+              <div class="item">
+                <div class="cover">
+                  <img src="./asset/news/new2.jpg" alt="" />
+                </div>
+                <div class="title">
+                  创投早报｜美国商业化核聚变创企获投；音乐版权公司完成融资
+                </div>
+                <div class="text">
+                  举办第六届中华印制大奖颁奖典礼、亚洲印刷展览联盟会议、国家主题日等多场专业、先进、丰富的同期活动，全面把握产业趋势与动态，共同探讨印刷业现状和未来。
+                </div>
+              </div>
+              <div class="item">
+                <div class="cover">
+                  <img src="./asset/news/new3.jpg" alt="" />
+                </div>
+                <div class="title">【千龙网】广告行业标准指导性意见将出台</div>
+                <div class="text">
+                  国际印刷工业发展论坛由中国印刷及设备器材工业协会主办，始创于2005年，四年一届，已成功举办三届，每届论坛选择5-6个发达国家和5-6个发展中国家印刷协会的主席或总裁发表演讲
+                </div>
+              </div>
+              <div class="item">
+                <div class="cover">
+                  <img src="./asset/news/new4.jpg" alt="" />
+                </div>
+                <div class="title">
+                  支持触觉反馈，Manus VR推出全新Prime VR手套
+                </div>
+                <div class="text">
+                  第三届国际印刷工业发展论坛（Forum-PI
+                  2013）于2013年5月13日在北京举行，主办方邀请了来自中国、美国、德国、英国、意大利、日本、澳大利亚、俄罗斯、印度、印尼、南非、巴西、
+                </div>
+              </div>
+            </div>
+            <div class="pagination">
+              <div class="content">
+                <select id="pageSize">
+                  <option value="8">8 条/页</option>
+                  <option value="10">10 条/页</option>
+                  <option value="20">20 条/页</option>
+                </select>
+
+                <div class="page-numbers" id="pageNumbers">
+                  <!-- 页码会动态生成 -->
+                </div>
+
+                <div class="goto">
+                  <span>前往</span>
+                  <input
+                    type="number"
+                    id="gotoInput"
+                    class="goto-input"
+                    min="1"
+                  />
+                  <span>页</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="detail">
+            <div class="moduleTitle">
+              <div class="text-border background-text">News Details page</div>
+              <div class="title">新闻详情页</div>
+              <div class="line"></div>
+            </div>
+            <div class="article"></div>
+          </div>
+        </div>
+        <div class="about" id="nav-content">
+          <div class="moduleTitle">
+            <div class="text-border background-text shadow-text">About us</div>
+            <div class="title">关于我们</div>
             <div class="line"></div>
           </div>
-          <div class="list">
-            <div class="item">
-              <div class="cover">
-                <img src="./asset/news/new1.png" alt="" />
+          <div class="content">
+            <div class="map" id="map"></div>
+            <div class="info">
+              <div class="title">一家专注系统高端定制开发的公司</div>
+              <div class="desc">
+                <div>
+                  互联网指的是是网络与网络之间所串连成的庞大网络，这些网络以一组通用的协议相连，形成逻辑上的单一巨大国际网络。
+                </div>
+                <div>
+                  互联网始于1969年美国的阿帕网。这种将计算机网络互相联接在一起的方法可称作“网络互联”，在这基础上发展出覆盖全世界的全球性互联网络称互联网，即是互相连接一起的网络结构。
+                </div>
+                <div>
+                  我们出色的专业开发团队扎实的技术支持，优质高效的服务意识和丰厚的资源优势，提供专业的网站建设，微信小程序，APP开发，等技术服务。成果，专注于为客户提供专业有效的互联网系统解决方案。
+                </div>
               </div>
-              <div class="title">
-                2022百度AI大会前夕，解读百度大脑的半年“豹变”
+              <div class="methods">
+                <div class="item">
+                  <div class="icon">
+                    <img src="./asset/icon/address.png" alt="" />
+                  </div>
+                  <div class="text">
+                    地址：中国山东省青岛市市南区某某中路20号
+                  </div>
+                </div>
+                <div class="item">
+                  <div class="icon">
+                    <img src="./asset/icon/mail.png" alt="" />
+                  </div>
+                  <div class="text">邮箱：1370XXX171@qq.com</div>
+                </div>
+                <div class="item">
+                  <div class="icon">
+                    <img src="./asset/icon/telephone.png" alt="" />
+                  </div>
+                  <div class="text">电话：0591-88888888</div>
+                </div>
               </div>
-              <div class="text">
-                Facebook为未来的VR社交打造了一款逼真的虚拟头像系统，该系统的特点是，利用数百颗摄像头对人脸进行动作捕捉，并能生成与人脸相似度很高的虚拟头像，这些头像还能模仿人脸的大量表情。
-              </div>
-            </div>
-            <div class="item">
-              <div class="cover">
-                <img src="./asset/news/new1.png" alt="" />
-              </div>
-              <div class="title"></div>
-              <div class="text"></div>
-            </div>
-            <div class="item">
-              <div class="cover">
-                <img src="./asset/news/new1.png" alt="" />
-              </div>
-              <div class="title"></div>
-              <div class="text"></div>
-            </div>
-            <div class="item">
-              <div class="cover">
-                <img src="./asset/news/new1.png" alt="" />
-              </div>
-              <div class="title"></div>
-              <div class="text"></div>
-            </div>
-            <div class="item">
-              <div class="cover">
-                <img src="./asset/news/new1.png" alt="" />
-              </div>
-              <div class="title"></div>
-              <div class="text"></div>
-            </div>
-            <div class="item">
-              <div class="cover">
-                <img src="./asset/news/new1.png" alt="" />
-              </div>
-              <div class="title"></div>
-              <div class="text"></div>
-            </div>
-            <div class="item">
-              <div class="cover">
-                <img src="./asset/news/new1.png" alt="" />
-              </div>
-              <div class="title"></div>
-              <div class="text"></div>
-            </div>
-            <div class="item">
-              <div class="cover">
-                <img src="./asset/news/new1.png" alt="" />
-              </div>
-              <div class="title"></div>
-              <div class="text"></div>
             </div>
           </div>
         </div>
-        <div class="about"></div>
       </div>
       <!-- d底部 -->
       <div class="footer">
@@ -276,4 +386,6 @@
   <script src="./js/nav.js"></script>
   <script src="./js/banner.js"></script>
   <script src="./js/oberver.js"></script>
+  <script src="./js/pagination.js"></script>
+  <script src="./js/map.js"></script>
 </html>

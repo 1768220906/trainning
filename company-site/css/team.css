@@ -8,7 +8,7 @@
   height: 100%;
 }
 
-.team .content .header {
+.team .content .top {
   width: 100%;
   height: 306px;
   position: relative;
@@ -19,18 +19,18 @@
   gap: 32px;
 }
 
-.team .content .header.show {
+.team .content .top.start {
   animation: SlideInRight 1s ease-in-out forwards;
 }
 
-.team .content .header .shadow-text {
+.team .content .top .shadow-text {
   position: absolute;
   top: 50px;
   left: 533px;
   z-index: -1;
 }
 
-.team .content .header .title {
+.team .content .top .title {
   font-size: 48px;
   color: #000;
 }
@@ -52,7 +52,7 @@
   object-fit: cover;
 }
 
-.team .content .group .item .show{
+.team .content .group .item .start{
   animation: FadeIn 0.5s ease-in-out forwards;
 }
 
@@ -68,7 +68,7 @@
   text-align: center;
 }
 
-.team .content .group .item .description.show {
+.team .content .group .item .description.start {
   animation: FadeIn 1s ease-in-out forwards;
 }
 

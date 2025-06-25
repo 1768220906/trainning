@@ -37,7 +37,7 @@
   transform: translateX(-100%);
 }
 
-.services .content .description.show {
+.services .content .description.start {
   animation: SlideInLeft 0.5s ease-out forwards;
 }
 
@@ -68,7 +68,7 @@
   opacity: 0;
 }
 
-.photos-wall .photo.show {
+.photos-wall .photo.start {
   animation: FadeIn 2s ease-in-out forwards;
 }
 

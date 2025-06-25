@@ -1,0 +1,73 @@
+.pagination {
+  padding: 54px;
+}
+
+.pagination .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  padding: 5px 10px;
+  gap: 16px;
+  user-select: none;
+}
+.content select,
+.content input {
+  font-size: 14px;
+  color: #8b8b8b;
+  border: 1px solid #dcdfe6;
+}
+
+.content select {
+  width: 100px;
+  padding: 4px 16px;
+}
+
+.content select:focus,
+.content input:focus {
+  outline: none;
+}
+
+.page-numbers {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.page-numbers span,
+.page-numbers button {
+  padding: 2px 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.page-numbers .number {
+  color: #8b8b8b;
+}
+
+.page-numbers .active {
+  color: #ff350d;
+  font-weight: bold;
+}
+
+.content .goto {
+  color: #8b8b8b;
+}
+
+.content .goto .goto-input {
+  width: 56px;
+  padding: 4px 8px;
+  text-align: center;
+}
+
+.content .goto button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+/* 隐藏 Chrome / Safari / Edge 的上下箭头 */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
