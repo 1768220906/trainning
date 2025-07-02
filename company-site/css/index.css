@@ -1,5 +1,3 @@
-
-
 #nav.active::after {
   content: "";
   position: absolute;
@@ -114,4 +112,107 @@
   width: 128px;
   height: 6px;
   background-color: #ff350d;
+}
+
+.grid-auto-fit-348 {
+  grid-template-columns: repeat(auto-fit, 348px);
+}
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* 行数 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 首页 */
+/* 服务范围 */
+.background {
+  background: url(../asset/service/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.services .content .shadow-text {
+  position: absolute;
+  left: 54px;
+  top: 75px;
+}
+
+.description.start {
+  animation: SlideInLeft 0.5s ease-out forwards;
+}
+
+.photo.start {
+  animation: FadeIn 2s ease-in-out forwards;
+}
+
+/* 企业文化 */
+.culture {
+  background: url(../asset/culture/culture.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.text-indent-48px {
+  text-indent: 48px;
+}
+
+.text-indent-32px {
+  text-indent: 32px;
+}
+
+.text-indent-28px {
+  text-indent: 28px;
+}
+
+/* 团队介绍 */
+.top.start {
+  animation: SlideInRight 1s ease-in-out forwards;
+}
+
+.teammate.start{
+  animation: FadeIn 0.5s ease-in-out forwards;
+}
+
+.teammate-text.start {
+  animation: FadeIn 1s ease-in-out forwards;
+}
+
+
+/* 新闻动态 */
+.moduleTitle.start {
+  animation: SlideInRight 1s ease-in-out forwards;
+}
+
+.moduleTitle .shadow-text {
+  color: #252429;
+  -webkit-text-stroke: 1px #353535;
+}
+
+.news-img.start {
+  animation: FadeIn 0.5s ease-in-out forwards;
+}
+
+.news-text.start {
+  animation: SlideInRight 0.5s ease-in-out forwards;
+}
+
+/* 新闻列表页 */
+
+/* 关于页 */
+
+.about {
+  padding-top: 100px;
+}
+
+.about .moduleTitle .title-text {
+  top: 36px;
+  left: 820px;
+}
+
+.about .map {
+  width: 750px;
+  height: 310px;
 }
