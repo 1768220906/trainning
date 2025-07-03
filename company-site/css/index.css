@@ -90,7 +90,7 @@
   top: 75px;
 }
 
-.stroke-text {
+.moduleTitle .stroke-text {
   color: #252429;
   -webkit-text-stroke: 1px #353535;
 }
