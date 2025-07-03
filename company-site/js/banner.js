@@ -7,82 +7,90 @@ const data = [
   },
   {
     image: "./asset/banner/about.jpg",
-    alt: "slide1",
+    alt: "slide2",
     title: "关于我们",
     subtitle:
       "企业构建互联网信息技术服务平台，领先技术变革，提升产业效率，致力于使能软件企业引领发展，服务制造企业转型升级，为政企客户提供“多快好省”的信息技术服务。",
   },
   {
     image: "./asset/banner/news.jpg",
-    alt: "slide1",
+    alt: "slide3",
     title: "新闻中心",
     subtitle:
       "几乎所有的伟大成就，都是团队集体协作追求远大目标的结果。这些团队的领导者挑选了团队的成员，并激励他们追求自己不敢想象的成就。",
   },
 ];
 
-const carousel = document.querySelector(".carousel"); // 获取carousel元素
-
+const carousel = document.querySelector(".carousel");
 const slidesContainer = document.querySelector(".slides");
 const dotsContainer = document.querySelector(".dots");
 
-// 获取轮播元素
-let slides = null; // 获取所有slides
-let dots = null; // 获取所有dots
+let slides = null;
+let dots = null;
+let circles = null;
+let circlesBg = null;
 
-// 自动轮播
-const autoSlideInterval = 5000; // 自动轮播间隔时间
-const slideCount = data.length; // 轮播图片count
+const autoSlideInterval = 5000;
 let currentSlide = 0;
-let timer = null;
 
 const radius = 8;
 const circumference = 2 * Math.PI * radius;
 
-// 设置进度
+let animStartTime = null;
+let rafId = null;
+let paused = false;
+
+// 设置圆环进度
 function setProgress(circle, percent) {
   const offset = circumference * (1 - percent);
   circle.style.strokeDashoffset = offset;
 }
 
-// 开始进度动画
-function startProgress(circle) {
-  if (!circle) return;
-
-  const duration = autoSlideInterval;
-  const start = performance.now();
-
-  function animate(now) {
-    const elapsed = now - start;
-    const percent = Math.min(elapsed / duration, 1);
-    setProgress(circle, percent);
-
-    if (percent < 1) {
-      circle._progressAnim = requestAnimationFrame(animate);
-    }
-  }
-
-  circle._progressAnim = requestAnimationFrame(animate);
-}
-
-// 停止进度动画
-function stopProgress(circle) {
-  if (circle?._progressAnim) {
-    cancelAnimationFrame(circle._progressAnim);
-    circle._progressAnim = null;
-  }
-}
-
-// 重置所有进度
-function resetAllProgress() {
-  dots.forEach((dot) => {
-    const circle = dot.querySelector(".progress-ring-fill");
-    stopProgress(circle);
-    setProgress(circle, 0);
+// 清除所有 active 类和进度
+function clearActive() {
+  slides.forEach((s) => s.classList.remove("active"));
+  dots.forEach((d) => d.classList.remove("active"));
+  circles.forEach((c) => {
+    c.r.baseVal.value = 5;
+    setProgress(c, 0);
+  });
+  circlesBg.forEach((c) => {
+    c.r.baseVal.value = 5;
   });
 }
+// 切换到指定 slide
+function goToSlide(index) {
+  clearActive();
+  currentSlide = index;
+  slides[currentSlide].classList.add("active");
+  dots[currentSlide].classList.add("active");
+  circles[currentSlide].r.baseVal.value = 8;
+  circlesBg[currentSlide].r.baseVal.value = 8;
+}
 
-// 创建slide元素
+// 动画帧循环控制
+function animate(now) {
+  if (paused) {
+    rafId = requestAnimationFrame(animate);
+    return;
+  }
+
+  if (!animStartTime) animStartTime = now;
+  const elapsed = now - animStartTime;
+  const percent = Math.min(elapsed / autoSlideInterval, 1);
+
+  setProgress(circles[currentSlide], percent);
+
+  if (elapsed >= autoSlideInterval) {
+    const nextIndex = (currentSlide + 1) % data.length;
+    goToSlide(nextIndex);
+    animStartTime = now;
+  }
+
+  rafId = requestAnimationFrame(animate);
+}
+
+// 创建 slide 元素
 function createSlideElement(slide) {
   const slideElement = document.createElement("div");
   slideElement.classList.add("slide");
@@ -104,60 +112,47 @@ function createSlideElement(slide) {
 
   description.appendChild(title);
   description.appendChild(subtitle);
-
   slideElement.appendChild(img);
   slideElement.appendChild(description);
 
   return slideElement;
 }
 
-// 创建dot元素
-function createDotElement(index, slideElement) {
+// 创建 dot 元素
+function createDotElement(index) {
   const dot = document.createElement("div");
   dot.classList.add("dot");
-
-  // 添加小圆环 SVG
   dot.innerHTML = `
     <svg class="progress-ring" width="20" height="20">
-      <circle
-        class="progress-ring-bg"
-        cx="10"
-        cy="10"
-        r="8"
-        stroke-width="2"
-        fill="transparent"
-      />
-      <circle
-        class="progress-ring-fill"
-        cx="10"
-        cy="10"
-        r="8"
-        stroke-width="2"
-        fill="transparent"
-      />
+      <circle class="progress-ring-bg" cx="10" cy="10" r="5" stroke-width="2" fill="transparent"/>
+      <circle class="progress-ring-fill" cx="10" cy="10" r="5" stroke-width="2" fill="transparent"/>
     </svg>
   `;
+  if (index === 0) {
+    dot.innerHTML = `
+    <svg class="progress-ring" width="20" height="20">
+      <circle class="progress-ring-bg" cx="10" cy="10" r="8" stroke-width="2" fill="transparent"/>
+      <circle class="progress-ring-fill" cx="10" cy="10" r="8" stroke-width="2" fill="transparent"/>
+    </svg>
+  `;
+  }
 
   dot.addEventListener("click", () => {
-    clearActive();
-    slideElement.classList.add("active");
-    dot.classList.add("active");
-    currentSlide = index;
-    resetAllProgress(); // 重置所有进度
-    startProgress(dot.querySelector(".progress-ring-fill")); // 当前 dot 圆环开始进度
+    animStartTime = null;
+    goToSlide(index);
   });
 
   return dot;
 }
 
-// 创建slide和dot元素
-function createSlide() {
+// 初始化所有 slides 和 dots
+function createSlidesAndDots() {
   const slidesFragment = document.createDocumentFragment();
   const dotsFragment = document.createDocumentFragment();
 
   data.forEach((slide, index) => {
     const slideElement = createSlideElement(slide);
-    const dotElement = createDotElement(index, slideElement);
+    const dotElement = createDotElement(index);
 
     if (index === 0) {
       slideElement.classList.add("active");
@@ -172,54 +167,39 @@ function createSlide() {
   dotsContainer.appendChild(dotsFragment);
 }
 
-// 开启自动轮播
-function startAutoSlide() {
-  timer = setTimeout(() => {
-    currentSlide = (currentSlide + 1) % slideCount;
-    clearActive();
-    slides[currentSlide].classList.add("active");
-    dots[currentSlide].classList.add("active");
-    resetAllProgress();
-    startProgress(dots[currentSlide].querySelector(".progress-ring-fill"));
-    startAutoSlide();
-  }, autoSlideInterval);
-}
-
-// 停止自动轮播
-function stopAutoSlide() {
-  clearTimeout(timer);
-  stopProgress(dots[currentSlide].querySelector(".progress-ring-fill"));
-}
-
-// 给carousel添加鼠标移入移出事件
-function addCarouselEvent() {
-  carousel.addEventListener("mouseenter", stopAutoSlide);
-  carousel.addEventListener("mouseleave", startAutoSlide);
-}
-
-// 清楚active类
-function clearActive() {
-  slides.forEach((slide) => {
-    slide.classList.remove("active");
-  });
-  dots.forEach((dot) => {
-    dot.classList.remove("active");
-  });
-}
-
-// 获取轮播元素
-function getSlideElements() {
+// 获取元素引用
+function getElements() {
   slides = document.querySelectorAll(".slide");
   dots = document.querySelectorAll(".dot");
+  circles = document.querySelectorAll(".progress-ring-fill");
+  circlesBg = document.querySelectorAll(".progress-ring-bg");
+
+  circles.forEach((circle) => {
+    circle.style.strokeDasharray = `${circumference}`;
+    setProgress(circle, 0);
+  });
 }
+
+// 鼠标悬停暂停动画
+function addCarouselEvent() {
+  carousel.addEventListener("mouseenter", () => {
+    paused = true;
+  });
+
+  carousel.addEventListener("mouseleave", () => {
+    if (paused) {
+      paused = false;
+      animStartTime = null; // 重新计时
+    }
+  });
+}
+
 // 初始化
 function init() {
-  createSlide();
-  startProgress(dots[0].querySelector(".progress-ring-fill"));
-  startAutoSlide();
-  getSlideElements();
+  createSlidesAndDots();
+  getElements();
   addCarouselEvent();
-  startAutoSlide();
+  rafId = requestAnimationFrame(animate);
 }
 
 init();
