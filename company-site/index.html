@@ -13,16 +13,54 @@
   <body>
     <div class="container-box">
       <div
-        class="w-full text-white px-12 py-8 bg-[#252429] absolute top-0 z-[999] flex items-center justify-between"
+        class="w-full text-white absolute top-0 z-[999] flex items-center justify-between p-5 sm:px-12 sm:py-8"
       >
         <div
           id="logo"
-          class="flex items-center gap-4 cursor-pointer active:scale-110"
+          class="flex items-center sm:gap-8 gap-4 cursor-pointer active:scale-110"
         >
-          <img class="size-9 object-cover" src="./asset/nav/logo.png" alt="" />
-          <span class="text-xl">企业站</span>
+          <img
+            class="sm:size-9 object-cover size-6"
+            src="./asset/nav/logo.png"
+            alt=""
+          />
+          <span class="sm:text-xl text-sm">企业站</span>
         </div>
-        <div class="flex items-center gap-22">
+        <div class="menu size-6 sm:hidden" id="menuButton">
+          <img src="./asset/nav/menu.png" alt="" />
+          <div
+            id="drawer"
+            class="bg-[#252429] fixed top-0 right-0 h-full w-80 shadow-lg z-50 transform translate-x-full transition-transform duration-300"
+          >
+            <div class="p-4 flex justify-between items-center">
+              <h2 class="text-lg font-semibold"></h2>
+              <div
+                id="closeDrawer"
+                class="text-gray-500 hover:text-gray-800 size-8 text-[32px] items-center justify-center flex"
+              >
+                &times;
+              </div>
+            </div>
+            <div class="p-4 flex flex-col">
+              <div
+                class="menu-item p-2 h-[60px] border-b-1 border-[#333333]"
+                data-target="home"
+              >
+                首页
+              </div>
+              <div
+                class="menu-item p-2 h-[112px] border-b-1 border-[#333333] leading-[112px]"
+                data-target="news"
+              >
+                新闻列表页
+              </div>
+              <div class="menu-item p-2 h-[112px] leading-[112px]" data-target="about">
+                关于我们
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-22 sm:block hidden">
           <div
             id="nav"
             class="cursor-pointer relative active:scale-110 item active"
@@ -49,25 +87,29 @@
       <div class="content">
         <div class="home" id="nav-content">
           <!-- Banner -->
-          <div class="carousel">
-            <div class="slides"></div>
+          <div class="carousel relative w-full overflow-hidden">
+            <div class="slides relative w-full h-68 sm:h-150"></div>
             <div class="dots"></div>
           </div>
           <!-- services -->
-          <div class="services pb-101">
-            <div class="content px-43 pt-50 pb-58 relative bg-[#f6f6f6]">
-              <div class="text-border absolute left-14 top-18">
+          <div class="services sm:pb-101">
+            <div
+              class="content py-8 sm:px-43 sm:pt-50 sm:pb-58 relative bg-[#f6f6f6]"
+            >
+              <div class="text-border px-7 sm:px-0 sm:absolute left-14 top-18">
                 Service scope
               </div>
               <div
-                class="background absolute top-62 left-12 w-228 h-279 opacity-20"
+                class="background absolute top-62 left-12 sm:w-228 sm:h-279 opacity-20"
               ></div>
               <div
-                class="description relative w-[700px] flex flex-col gap-[54px] z-[999] target"
+                class="description w-full px-7 sm:px-0 relative w-[700px] flex flex-col sm:gap-14 gap-3 z-[9] target"
               >
-                <div class="text-[48px]">服务范围</div>
+                <div class="sm:text-[48px] text-[24px] -mt-6 ml-5 sm:m-0">
+                  服务范围
+                </div>
                 <div
-                  class="text-[24px] leading-[45px] flex flex-col gap-14 text-[#8b8b8b]"
+                  class="sm:text-[24px] sm:leading-[45px] text-sm leading-[27px] flex flex-col sm:gap-14 gap-3 text-[#8b8b8b]"
                 >
                   <span
                     >依托百度政务混合云，汇聚城市管理及公安等政务领域的自有数据及互联网公开数据，基于百度大数据多年积累的行业模型及实战经验，提供从数据整合治理到分析挖掘的一站式大数据解决方案，助力智慧政务新时代。</span
@@ -77,33 +119,35 @@
                   >
                 </div>
               </div>
-              <div class="w-288 absolute flex top-80 right-0 flex-wrap gap-8">
+              <div
+                class="sm:w-288 sm:absolute flex justify-end top-80 right-0 flex-wrap sm:gap-8 gap-3"
+              >
                 <div
-                  class="w-105 flex justify-end items-end opacity-0 photo target"
+                  class="sm:w-105 flex justify-end items-end opacity-0 photo target"
                 >
                   <img
-                    class="size-64 object-cover"
+                    class="sm:size-64 size-20 object-cover"
                     src="./asset/service/kid.jpg"
                     alt=""
                   />
                 </div>
                 <div class="opacity-0 photo target">
                   <img
-                    class="w-175 w-150 object-cover"
+                    class="sm:w-175 w-58 sm:h-150 h-48 object-cover"
                     src="./asset/service/man.jpg"
                     alt=""
                   />
                 </div>
                 <div class="opacity-0 photo target">
                   <img
-                    class="w-165 w-121 object-cover"
+                    class="sm:w-165 w-[218px] sm:h-121 h-39 object-cover"
                     src="./asset/service/woman.jpg"
                     alt=""
                   />
                 </div>
                 <div class="opacity-0 photo target">
                   <img
-                    class="w-115 w-75 object-cover"
+                    class="sm:w-115 w-40 sm:h-75 h-24 sm: object-cover"
                     src="./asset/service/couple.jpg"
                     alt=""
                   />
@@ -112,13 +156,15 @@
             </div>
           </div>
           <!-- 企业文化 -->
-          <div class="h-130 flex justify-center items-center relative culture">
+          <div
+            class="h-130 mt-36 flex justify-center items-center relative culture sm:flex hidden"
+          >
             <div class="w-full h-full absolute bg-black opacity-60"></div>
             <div
-              class="text-white z-[999] flex flex-col justify-center items-center gap-8"
+              class="text-white relative z-[9] flex flex-col justify-center items-center gap-8"
             >
               <div class="text-[48px]">企业文化</div>
-              <div class="line"></div>
+              <div class="w-32 h-[6px] bg-[#ff350d]"></div>
               <div class="w-380 flex flex-col text-[24px] leading-[45px]">
                 <div class="text-indent-48px">
                   作为中国专业的企业文化咨询公司，我们在生存和发展的历程中，也形成了自己经营管理个性和文化，我们的运营和发展都基于对这些文化涵盖的信念、信条和原则持之以恒、不折不扣地执行，所有公司的成员的所有行为均需与这些标准和原则保持高度统一。
@@ -133,25 +179,35 @@
           <div class="team">
             <div class="content">
               <div
-                class="top h-76 relative pt-38 flex flex-col items-center gap-8 target"
+                class="top px-7 py-8 sm:p-0 sm:h-76 relative sm:pt-38 flex flex-col sm:items-center sm:gap-8 target"
               >
-                <div class="absolute top-12 left-133 text-border">
+                <div class="sm:absolute top-12 left-133 text-border">
                   Team to introduce
                 </div>
-                <div class="text-[48px] text-[#000] z-[999]">团队介绍</div>
-                <div class="line"></div>
+                <div
+                  class="sm:text-[48px] text-[24px] text-[#000] z-[9] text-center sm:text-start -mt-6"
+                >
+                  团队介绍
+                </div>
+                <div
+                  class="sm:w-32 w-16 sm:h-[6px] h-[3px] bg-[#ff350d] mx-auto mt-4"
+                ></div>
               </div>
-              <div class="flex">
-                <div class="w-160 h-225 overflow-hidden relative teammate">
+              <div class="sm:flex">
+                <div
+                  class="sm:w-160 sm:h-225 overflow-hidden relative teammate"
+                >
                   <img
                     class="size-full object-cover hover:scale-110 target"
                     src="./asset/group/ceo.jpg"
                     alt=""
                   />
                   <div
-                    class="absolute left-48 bottom-27 text-white text-center teammate-text target"
+                    class="absolute left-1/2 -translate-x-1/2 sm:bottom-27 bottom-17 text-white text-center teammate-text target"
                   >
-                    <div class="text-[48px] mb-6">Jon Smith</div>
+                    <div class="text-[48px] mb-6 whitespace-nowrap">
+                      Jon Smith
+                    </div>
                     <div class="text-[20px] mb-14">
                       特级教师，从事教育工作10年
                     </div>
@@ -161,16 +217,20 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-160 h-225 overflow-hidden relative">
+                <div
+                  class="sm:w-160 sm:h-225 overflow-hidden relative teammate"
+                >
                   <img
                     class="size-full object-cover hover:scale-110 target"
                     src="./asset/group/cfo.jpg"
                     alt=""
                   />
                   <div
-                    class="absolute left-48 bottom-27 text-white text-center teammate-text target"
+                    class="absolute left-1/2 -translate-x-1/2 sm:bottom-27 bottom-17 text-white text-center teammate-text target"
                   >
-                    <div class="text-[48px] mb-6">Merri Bond</div>
+                    <div class="text-[48px] mb-6 whitespace-nowrap">
+                      Merri Bond
+                    </div>
                     <div class="text-[20px] mb-14">
                       特级教师，从事教育工作10年
                     </div>
@@ -180,16 +240,20 @@
                     </div>
                   </div>
                 </div>
-                <div class="w-160 h-225 overflow-hidden relative">
+                <div
+                  class="sm:w-160 sm:h-225 overflow-hidden relative teammate"
+                >
                   <img
                     class="size-full object-cover hover:scale-110 target"
                     src="./asset/group/ufo.jpg"
                     alt=""
                   />
                   <div
-                    class="absolute left-48 bottom-27 text-white text-center teammate-text target"
+                    class="absolute left-1/2 -translate-x-1/2 sm:bottom-27 bottom-17 text-white text-center teammate-text target"
                   >
-                    <div class="text-[48px] mb-6">Samuel Fredman</div>
+                    <div class="text-[48px] mb-6 whitespace-nowrap">
+                      Samuel Fredman
+                    </div>
                     <div class="text-[20px] mb-14">
                       特级教师，从事教育工作10年
                     </div>
@@ -205,18 +269,30 @@
           <!-- 新闻动态 -->
           <div class="news">
             <div class="bg-[#252429]">
-              <div class="moduleTitle target">
-                <div class="text-border background-text shadow-text">
+              <div
+                class="moduleTitle pt-8 sm:pt-0 sm:items-center sm:gap-8 target"
+              >
+                <div
+                  class="text-border background-text stroke-text px-7 sm:px-0"
+                >
                   news and trends
                 </div>
-                <div class="text-[48px] text-[#fff] mt-32 z-[999]">
+                <div
+                  class="sm:text-[48px] text-[24px] text-[#fff] sm:mt-32 z-[9] text-center -mt-6"
+                >
                   新闻动态
                 </div>
-                <div class="line"></div>
+                <div
+                  class="sm:w-32 w-16 sm:h-[6px] h-[3px] bg-[#ff350d] mx-auto mt-4"
+                ></div>
               </div>
-              <div class="flex gap-16 px-41 pt-14 pb-8">
-                <div class="flex flex-col gap-7">
-                  <div class="w-87 h-126 overflow-hidden">
+              <div
+                class="flex flex-wrap gap-3 sm:gap-16 sm:px-41 sm:pt-14 sm:pb-8 p-5"
+              >
+                <div
+                  class="flex flex-col sm:w-87 w-42 gap-4 sm:h-126 sm:65 sm:gap-7"
+                >
+                  <div class="w-full h-full overflow-hidden">
                     <img
                       class="size-full object-cover hover:scale-110 target news-img"
                       src="./asset/news/new1.png"
@@ -224,16 +300,20 @@
                     />
                   </div>
                   <div
-                    class="text-[20px] text-white leading-9 target news-text"
+                    class="sm:text-[20px] font-semibold sm:leading-9 leading-6 text-[15px] text-white target news-text"
                   >
                     2022百度AI大会前夕，解读百度大脑的半年“豹变”
                   </div>
-                  <div class="text-sm text-white leading-7 target news-text">
+                  <div
+                    class="text-sm text-white sm:leading-7 leading-6 target news-text"
+                  >
                     Facebook为未来的VR社交打造了一款逼真的虚拟头像系统，该系统的特点是，利用数百颗摄像头对人脸进行动作捕捉，并能生成与人脸相似度很高的虚拟头像，这些头像还能模仿人脸的大量表情。
                   </div>
                 </div>
-                <div class="flex flex-col gap-7">
-                  <div class="w-87 h-126 overflow-hidden">
+                <div
+                  class="flex flex-col sm:w-87 w-42 sm:h-126 sm:65 sm:gap-7 gap-4"
+                >
+                  <div class="w-full h-full overflow-hidden">
                     <img
                       class="size-full object-cover hover:scale-110 target news-img"
                       src="./asset/news/new2.jpg"
@@ -241,16 +321,20 @@
                     />
                   </div>
                   <div
-                    class="text-[20px] text-white leading-9 target news-text"
+                    class="sm:text-[20px] text-[15px] text-white sm:leading-9 leading-6 target news-text"
                   >
                     创投早报｜美国商业化核聚变创企获投；音乐版权公司完成融资
                   </div>
-                  <div class="text-sm text-white leading-7 target news-text">
+                  <div
+                    class="text-sm text-white sm:leading-7 leading-6 target news-text"
+                  >
                     举办第六届中华印制大奖颁奖典礼、亚洲印刷展览联盟会议、国家主题日等多场专业、先进、丰富的同期活动，全面把握产业趋势与动态，共同探讨印刷业现状和未来。
                   </div>
                 </div>
-                <div class="flex flex-col gap-7">
-                  <div class="w-87 h-126 overflow-hidden">
+                <div
+                  class="flex flex-col sm:w-87 w-42 sm:h-126 sm:65 sm:gap-7 gap-4"
+                >
+                  <div class="w-full h-full overflow-hidden">
                     <img
                       class="size-full object-cover hover:scale-110 target news-img"
                       src="./asset/news/new3.jpg"
@@ -258,16 +342,20 @@
                     />
                   </div>
                   <div
-                    class="text-[20px] text-white leading-9 target news-text"
+                    class="sm:text-[20px] text-[15px] text-white sm:leading-9 leading-6 target news-text"
                   >
                     【千龙网】广告行业标准指导性意见将出台
                   </div>
-                  <div class="text-sm text-white leading-7 target news-text">
+                  <div
+                    class="text-sm text-white sm:leading-7 leading-6 target news-text"
+                  >
                     国际印刷工业发展论坛由中国印刷及设备器材工业协会主办，始创于2005年，四年一届，已成功举办三届，每届论坛选择5-6个发达国家和5-6个发展中国家印刷协会的主席或总裁发表演讲。
                   </div>
                 </div>
-                <div class="flex flex-col gap-7">
-                  <div class="w-87 h-126 overflow-hidden">
+                <div
+                  class="flex flex-col sm:w-87 w-42 sm:h-126 sm:65 sm:gap-7 gap-4"
+                >
+                  <div class="w-full h-full overflow-hidden">
                     <img
                       class="size-full object-cover hover:scale-110 target news-img"
                       src="./asset/news/new4.jpg"
@@ -275,11 +363,13 @@
                     />
                   </div>
                   <div
-                    class="text-[20px] text-white leading-9 target news-text"
+                    class="sm:text-[20px] text-[15px] text-white sm:leading-9 leading-6 target news-text"
                   >
                     支持触觉反馈，Manus VR推出全新Prime VR手套
                   </div>
-                  <div class="text-sm text-white leading-7 target news-text">
+                  <div
+                    class="text-sm text-white sm:leading-7 leading-6 target news-text"
+                  >
                     第三届国际印刷工业发展论坛（Forum-PI2013）于2013年5月13日在北京举行，主办方邀请了来自中国、美国、德国、英国、意大利、日本、澳大利亚、俄罗斯、印度、印尼、南非、巴西、
                   </div>
                 </div>
@@ -289,14 +379,14 @@
         </div>
         <div class="news pt-25 hidden" id="nav-content">
           <div class="all" id="news-list">
-            <div class="moduleTitle">
+            <div class="moduleTitle gap-8">
               <div class="text-border background-text">News list page</div>
               <div class="title">新闻列表页</div>
-              <div class="line"></div>
+              <div class="w-32 h-[6px] bg-[#ff350d]"></div>
             </div>
             <div class="px-40 py-14 grid gap-16 grid-auto-fit-348">
               <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="w-87 h-126 overflow-hidden">
+                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new1.png"
@@ -311,7 +401,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="w-87 h-126 overflow-hidden">
+                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new2.jpg"
@@ -326,7 +416,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="w-87 h-126 overflow-hidden">
+                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new3.jpg"
@@ -341,7 +431,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="w-87 h-126 overflow-hidden">
+                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new4.jpg"
@@ -357,7 +447,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="w-87 h-126 overflow-hidden">
+                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new1.png"
@@ -372,7 +462,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="w-87 h-126 overflow-hidden">
+                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new2.jpg"
@@ -387,7 +477,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="w-87 h-126 overflow-hidden">
+                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new3.jpg"
@@ -402,7 +492,7 @@
                 </div>
               </div>
               <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="w-87 h-126 overflow-hidden">
+                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new4.jpg"
@@ -445,10 +535,10 @@
             </div>
           </div>
           <div class="detail hidden" id="news-detail">
-            <div class="moduleTitle">
+            <div class="moduleTitle gap-8">
               <div class="text-border background-text">News Details page</div>
               <div class="title">新闻详情页</div>
-              <div class="line"></div>
+              <div class="w-32 h-[6px] bg-[#ff350d]"></div>
             </div>
             <div class="article px-45 py-14">
               <div class="w-full h-165 mb-14">
@@ -593,10 +683,10 @@
           </div>
         </div>
         <div class="about hidden" id="nav-content">
-          <div class="moduleTitle">
+          <div class="moduleTitle gap-8">
             <div class="text-border background-text title-text">About us</div>
             <div class="title">关于我们</div>
-            <div class="line"></div>
+            <div class="w-32 h-[6px] bg-[#ff350d]"></div>
           </div>
           <div class="flex gap-[36px] px-[180px] pt-[54px] pb-[182px]">
             <div class="map" id="map"></div>
@@ -654,17 +744,27 @@
         </div>
       </div>
       <!-- d底部 -->
-      <div class="footer">
-        <div class="info">
+      <div
+        class="w-full bg-[#ff350d] flex flex-col sm:items-center justify-center gap-6 sm:gap-[48px] sm:p-12 px-8 py-4"
+      >
+        <div
+          class="text-white text-[12px] sm:text-[16px] font-semibold flex flex-col sm:flex-row justify-between sm:gap-[128px] gap-3"
+        >
           <div class="info-item">地址：中国山东省青岛市市南区某某中路20号</div>
           <div class="info-item">邮箱：1370XXX171@qq.com</div>
           <div class="info-item">电话：0591-88888888</div>
         </div>
-        <div class="copyright">
-          <div class="qr">
-            <img src="./asset/qr/qrcode.png" alt="" />
+        <div
+          class="flex items-center text-white sm:gap-3 gap-1 text-[12px] sm:text-[16px]"
+        >
+          <div class="sm:w-[50px] sm:h-[50px] size-9">
+            <img
+              class="w-full h-full object-cover"
+              src="./asset/qr/qrcode.png"
+              alt=""
+            />
           </div>
-          <div class="text">
+          <div class="flex-1">
             Copyright © 2009 - 2022 Cld , All Rights Reserved
             某某网络科技有限公司 版权所有 陕ICP备xxxxxxx号
           </div>
@@ -673,6 +773,7 @@
     </div>
   </body>
   <script src="./js/nav.js"></script>
+  <script src="./js/menu.js"></script>
   <script src="./js/banner.js"></script>
   <script src="./js/oberver.js"></script>
   <script src="./js/pagination.js"></script>
