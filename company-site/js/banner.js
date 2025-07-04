@@ -182,6 +182,12 @@ function getElements() {
 
 // 鼠标悬停暂停动画
 function addCarouselEvent() {
+  const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+  if (mediaQuery.matches) {
+    return;
+  }
+
   carousel.addEventListener("mouseenter", () => {
     paused = true;
   });
