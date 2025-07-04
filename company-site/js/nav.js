@@ -29,7 +29,6 @@ function clearNavContentCurrent() {
 
 // 给所有nav添加点击事件
 function addNavClick() {
-  console.log(navs);
 
   navs.forEach((nav, index) => {
     nav.addEventListener("click", (event) => {

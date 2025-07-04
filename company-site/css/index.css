@@ -66,7 +66,7 @@
 }
 
 .grid-auto-fit-348 {
-  grid-template-columns: repeat(auto-fit, 348px);
+  grid-template-columns: repeat(auto-fit, minmax(348px, 1fr));
 }
 
 .multiline-ellipsis {
@@ -123,6 +123,33 @@
   text-indent: 28px;
 }
 
+.aspect-news-box {
+  width: 100%;
+  aspect-ratio: 348 / 506;
+}
+
+.aspect-map-box {
+  aspect-ratio: 750 / 310;
+}
+
+.aspect-service-box1 {
+  aspect-ratio: 1 / 1;
+}
+
+.aspect-service-box2 {
+  aspect-ratio: 7 / 6;
+}
+
+.aspect-service-box3 {
+  aspect-ratio: 329 / 242;
+}
+
+.aspect-service-box4 {
+  aspect-ratio: 23 / 15;
+}
+
+
+
 /* 团队介绍 */
 .top.start {
   animation: SlideInRight 1s ease-in-out forwards;
@@ -153,20 +180,16 @@
 
 /* 关于页 */
 
-.about {
-  padding-top: 100px;
-}
-
-.about .moduleTitle .title-text {
-  top: 36px;
-  left: 820px;
-}
-
-.about .map {
-  width: 750px;
-  height: 310px;
-}
 @media screen and (max-width: 768px) {
+  .aspect-news-box {
+    width: 100%;
+    aspect-ratio: 334 / 518;
+  }
+
+  .aspect-map-box {
+    aspect-ratio: 768 / 480;
+  }
+
   .text-border {
     font-size: 32px;
   }
@@ -179,5 +202,9 @@
   .moduleTitle .stroke-text {
     color: #252429;
     -webkit-text-stroke: 1px #353535;
+  }
+
+  .grid-auto-fit-348 {
+    grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
   }
 }

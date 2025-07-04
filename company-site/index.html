@@ -11,9 +11,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <div class="container-box">
+    <div class="container-box overflow-hidden">
       <div
-        class="w-full text-white absolute top-0 z-[999] flex items-center justify-between p-5 sm:px-12 sm:py-8"
+        class="w-full text-white absolute top-0 z-[9] flex items-center justify-between p-5 sm:px-12 sm:py-8 bg-[#252429]"
       >
         <div
           id="logo"
@@ -28,39 +28,8 @@
         </div>
         <div class="menu size-6 sm:hidden" id="menuButton">
           <img src="./asset/nav/menu.png" alt="" />
-          <div
-            id="drawer"
-            class="bg-[#252429] fixed top-0 right-0 h-full w-80 shadow-lg z-50 transform translate-x-full transition-transform duration-300"
-          >
-            <div class="p-4 flex justify-between items-center">
-              <h2 class="text-lg font-semibold"></h2>
-              <div
-                id="closeDrawer"
-                class="text-gray-500 hover:text-gray-800 size-8 text-[32px] items-center justify-center flex"
-              >
-                &times;
-              </div>
-            </div>
-            <div class="p-4 flex flex-col">
-              <div
-                class="menu-item p-2 h-[60px] border-b-1 border-[#333333]"
-                data-target="home"
-              >
-                首页
-              </div>
-              <div
-                class="menu-item p-2 h-[112px] border-b-1 border-[#333333] leading-[112px]"
-                data-target="news"
-              >
-                新闻列表页
-              </div>
-              <div class="menu-item p-2 h-[112px] leading-[112px]" data-target="about">
-                关于我们
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="flex items-center gap-22 sm:block hidden">
+        <div class="flex items-center gap-22 sm:flex hidden">
           <div
             id="nav"
             class="cursor-pointer relative active:scale-110 item active"
@@ -85,7 +54,7 @@
         </div>
       </div>
       <div class="content">
-        <div class="home" id="nav-content">
+        <div class="home w-full" id="nav-content">
           <!-- Banner -->
           <div class="carousel relative w-full overflow-hidden">
             <div class="slides relative w-full h-68 sm:h-150"></div>
@@ -103,7 +72,7 @@
                 class="background absolute top-62 left-12 sm:w-228 sm:h-279 opacity-20"
               ></div>
               <div
-                class="description w-full px-7 sm:px-0 relative w-[700px] flex flex-col sm:gap-14 gap-3 z-[9] target"
+                class="description w-full px-7 sm:px-0 relative sm:w-[700px] flex flex-col sm:gap-14 gap-3 z-[9] target"
               >
                 <div class="sm:text-[48px] text-[24px] -mt-6 ml-5 sm:m-0">
                   服务范围
@@ -120,34 +89,34 @@
                 </div>
               </div>
               <div
-                class="sm:w-288 sm:absolute flex justify-end top-80 right-0 flex-wrap sm:gap-8 gap-3"
+                class="sm:w-288 sm:absolute flex justify-end top-80 right-0 flex-wrap sm:gap-8 gap-3 mt-4 sm:mt-0"
               >
                 <div
-                  class="sm:w-105 flex justify-end items-end opacity-0 photo target"
+                  class="sm:w-105 w-[36%] flex justify-end items-end opacity-0 photo target"
                 >
                   <img
-                    class="sm:size-64 size-20 object-cover"
+                    class="w-[58%] aspect-service-box1 object-cover"
                     src="./asset/service/kid.jpg"
                     alt=""
                   />
                 </div>
-                <div class="opacity-0 photo target">
+                <div class="w-[60%] opacity-0 photo target">
                   <img
-                    class="sm:w-175 w-58 sm:h-150 h-48 object-cover"
+                    class="aspect-service-box2 object-cover"
                     src="./asset/service/man.jpg"
                     alt=""
                   />
                 </div>
-                <div class="opacity-0 photo target">
+                <div class="w-[56.5%] opacity-0 photo target">
                   <img
-                    class="sm:w-165 w-[218px] sm:h-121 h-39 object-cover"
+                    class="aspect-service-box3 object-cover"
                     src="./asset/service/woman.jpg"
                     alt=""
                   />
                 </div>
-                <div class="opacity-0 photo target">
+                <div class="w-[40%] opacity-0 photo target">
                   <img
-                    class="sm:w-115 w-40 sm:h-75 h-24 sm: object-cover"
+                    class="aspect-service-box4 sm: object-cover"
                     src="./asset/service/couple.jpg"
                     alt=""
                   />
@@ -287,12 +256,10 @@
                 ></div>
               </div>
               <div
-                class="flex flex-wrap gap-3 sm:gap-12 sm:px-41 sm:pt-14 sm:pb-8 p-5"
+                class="sm:px-40 sm:py-14 p-4 grid sm:gap-16 gap-4 grid-auto-fit-348"
               >
-                <div
-                  class="flex flex-col sm:w-87 w-42 gap-4 sm:h-126 sm:65 sm:gap-7"
-                >
-                  <div class="w-full h-full overflow-hidden">
+                <div class="flex flex-col w-full sm:gap-7 gap-4">
+                  <div class="aspect-news-box overflow-hidden">
                     <img
                       class="size-full object-cover hover:scale-110 target news-img"
                       src="./asset/news/new1.png"
@@ -310,10 +277,8 @@
                     Facebook为未来的VR社交打造了一款逼真的虚拟头像系统，该系统的特点是，利用数百颗摄像头对人脸进行动作捕捉，并能生成与人脸相似度很高的虚拟头像，这些头像还能模仿人脸的大量表情。
                   </div>
                 </div>
-                <div
-                  class="flex flex-col sm:w-87 w-42 sm:h-126 sm:65 sm:gap-7 gap-4"
-                >
-                  <div class="w-full h-full overflow-hidden">
+                <div class="flex flex-col sw-full sm:gap-7 gap-4">
+                  <div class="aspect-news-box overflow-hidden">
                     <img
                       class="size-full object-cover hover:scale-110 target news-img"
                       src="./asset/news/new2.jpg"
@@ -321,7 +286,7 @@
                     />
                   </div>
                   <div
-                    class="sm:text-[20px] text-[15px] text-white sm:leading-9 leading-6 target news-text"
+                    class="sm:text-[20px] font-semibold sm:leading-9 leading-6 text-[15px] text-white target news-text"
                   >
                     创投早报｜美国商业化核聚变创企获投；音乐版权公司完成融资
                   </div>
@@ -331,10 +296,8 @@
                     举办第六届中华印制大奖颁奖典礼、亚洲印刷展览联盟会议、国家主题日等多场专业、先进、丰富的同期活动，全面把握产业趋势与动态，共同探讨印刷业现状和未来。
                   </div>
                 </div>
-                <div
-                  class="flex flex-col sm:w-87 w-42 sm:h-126 sm:65 sm:gap-7 gap-4"
-                >
-                  <div class="w-full h-full overflow-hidden">
+                <div class="flex flex-col sm:w-87 w-42 sm:gap-7 gap-4">
+                  <div class="aspect-news-box overflow-hidden">
                     <img
                       class="size-full object-cover hover:scale-110 target news-img"
                       src="./asset/news/new3.jpg"
@@ -342,7 +305,7 @@
                     />
                   </div>
                   <div
-                    class="sm:text-[20px] text-[15px] text-white sm:leading-9 leading-6 target news-text"
+                    class="sm:text-[20px] font-semibold sm:leading-9 leading-6 text-[15px] text-white target news-text"
                   >
                     【千龙网】广告行业标准指导性意见将出台
                   </div>
@@ -352,10 +315,8 @@
                     国际印刷工业发展论坛由中国印刷及设备器材工业协会主办，始创于2005年，四年一届，已成功举办三届，每届论坛选择5-6个发达国家和5-6个发展中国家印刷协会的主席或总裁发表演讲。
                   </div>
                 </div>
-                <div
-                  class="flex flex-col sm:w-87 w-42 sm:h-126 sm:65 sm:gap-7 gap-4"
-                >
-                  <div class="w-full h-full overflow-hidden">
+                <div class="flex flex-col sm:w-87 w-42 sm:gap-7 gap-4">
+                  <div class="aspect-news-box overflow-hidden">
                     <img
                       class="size-full object-cover hover:scale-110 target news-img"
                       src="./asset/news/new4.jpg"
@@ -363,7 +324,7 @@
                     />
                   </div>
                   <div
-                    class="sm:text-[20px] text-[15px] text-white sm:leading-9 leading-6 target news-text"
+                    class="sm:text-[20px] font-semibold sm:leading-9 leading-6 text-[15px] text-white target news-text"
                   >
                     支持触觉反馈，Manus VR推出全新Prime VR手套
                   </div>
@@ -377,132 +338,176 @@
             </div>
           </div>
         </div>
-        <div class="news pt-25 hidden" id="nav-content">
+        <div class="news hidden sm:pt-25 pt-8" id="nav-content">
           <div class="all" id="news-list">
-            <div class="moduleTitle gap-8">
-              <div class="text-border background-text">News list page</div>
-              <div class="title">新闻列表页</div>
-              <div class="w-32 h-[6px] bg-[#ff350d]"></div>
+            <div class="moduleTitle pt- sm:pt-0 sm:items-center sm:gap-8">
+              <div class="text-border background-text px-7 sm:px-0">
+                News list page
+              </div>
+              <div
+                class="sm:text-[48px] text-[24px] sm:mt-32 z-[9] text-center -mt-6"
+              >
+                新闻列表页
+              </div>
+              <div
+                class="sm:w-32 w-16 sm:h-[6px] h-[3px] bg-[#ff350d] mx-auto mt-4"
+              ></div>
             </div>
-            <div class="px-40 py-14 grid gap-16 grid-auto-fit-348">
-              <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
+            <div
+              class="sm:px-40 sm:py-14 p-4 grid sm:gap-16 gap-4 grid-auto-fit-348"
+            >
+              <div
+                class="flex flex-col sm:gap-7 gap-4 w-full cursor-pointer"
+                id="news"
+              >
+                <div class="aspect-news-box overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new1.png"
                     alt=""
                   />
                 </div>
-                <div class="text-xl leading-7 text-[#353535] hover:underline">
+                <div
+                  class="font-semibold leading-6 sm:text-xl sm:leading-7 text-[#353535] hover:underline"
+                >
                   2022百度AI大会前夕，解读百度大脑的半年“豹变”
                 </div>
-                <div class="text-sm leading-7 multiline-ellipsis">
+                <div class="text-sm sm:leading-7 leading-6 multiline-ellipsis">
                   Facebook为未来的VR社交打造了一款逼真的虚拟头像系统，该系统的特点是，利用数百颗摄像头对人脸进行动作捕捉，并能生成与人脸相似度很高的虚拟头像，这些头像还能模仿人脸的大量表情。
                 </div>
               </div>
-              <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
+              <div
+                class="flex flex-col sm:gap-7 gap-4 w-full cursor-pointer"
+                id="news"
+              >
+                <div class="aspect-news-box overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new2.jpg"
                     alt=""
                   />
                 </div>
-                <div class="text-xl leading-7 text-[#353535] hover:underline">
+                <div
+                  class="font-semibold leading-6 sm:text-xl sm:leading-7 text-[#353535] hover:underline"
+                >
                   创投早报｜美国商业化核聚变创企获投；音乐版权公司完成融资
                 </div>
-                <div class="text-sm leading-7 multiline-ellipsis">
+                <div class="text-sm sm:leading-7 leading-6 multiline-ellipsis">
                   举办第六届中华印制大奖颁奖典礼、亚洲印刷展览联盟会议、国家主题日等多场专业、先进、丰富的同期活动，全面把握产业趋势与动态，共同探讨印刷业现状和未来。
                 </div>
               </div>
-              <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
+              <div class="flex flex-col gap-7 w-full cursor-pointer" id="news">
+                <div class="aspect-news-box overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new3.jpg"
                     alt=""
                   />
                 </div>
-                <div class="text-xl leading-7 text-[#353535] hover:underline">
+                <div
+                  class="font-semibold leading-6 sm:text-xl sm:leading-7 text-[#353535] hover:underline"
+                >
                   【千龙网】广告行业标准指导性意见将出台
                 </div>
-                <div class="text-sm leading-7 multiline-ellipsis">
+                <div class="text-sm sm:leading-7 leading-6 multiline-ellipsis">
                   国际印刷工业发展论坛由中国印刷及设备器材工业协会主办，始创于2005年，四年一届，已成功举办三届，每届论坛选择5-6个发达国家和5-6个发展中国家印刷协会的主席或总裁发表演讲
                 </div>
               </div>
-              <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
+              <div
+                class="flex flex-col sm:gap-7 gap-4 w-full cursor-pointer"
+                id="news"
+              >
+                <div class="aspect-news-box overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new4.jpg"
                     alt=""
                   />
                 </div>
-                <div class="text-xl leading-7 text-[#353535] hover:underline">
+                <div
+                  class="font-semibold leading-6 sm:text-xl sm:leading-7 text-[#353535] hover:underline"
+                >
                   支持触觉反馈，Manus VR推出全新Prime VR手套
                 </div>
-                <div class="text-sm leading-7 multiline-ellipsis">
+                <div class="text-sm sm:leading-7 leading-6 multiline-ellipsis">
                   第三届国际印刷工业发展论坛（Forum-PI
                   2013）于2013年5月13日在北京举行，主办方邀请了来自中国、美国、德国、英国、意大利、日本、澳大利亚、俄罗斯、印度、印尼、南非、巴西、
                 </div>
               </div>
-              <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
+              <div
+                class="flex flex-col sm:gap-7 gap-4 w-full cursor-pointer"
+                id="news"
+              >
+                <div class="aspect-news-box overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new1.png"
                     alt=""
                   />
                 </div>
-                <div class="text-xl leading-7 text-[#353535] hover:underline">
+                <div
+                  class="font-semibold leading-6 sm:text-xl sm:leading-7 text-[#353535] hover:underline"
+                >
                   2022百度AI大会前夕，解读百度大脑的半年“豹变”
                 </div>
-                <div class="text-sm leading-7 multiline-ellipsis">
+                <div class="text-sm sm:leading-7 leading-6 multiline-ellipsis">
                   Facebook为未来的VR社交打造了一款逼真的虚拟头像系统，该系统的特点是，利用数百颗摄像头对人脸进行动作捕捉，并能生成与人脸相似度很高的虚拟头像，这些头像还能模仿人脸的大量表情。
                 </div>
               </div>
-              <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
+              <div
+                class="flex flex-col sm:gap-7 gap-4 w-full cursor-pointer"
+                id="news"
+              >
+                <div class="aspect-news-box overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new2.jpg"
                     alt=""
                   />
                 </div>
-                <div class="text-xl leading-7 text-[#353535] hover:underline">
+                <div
+                  class="font-semibold leading-6 sm:text-xl sm:leading-7 text-[#353535] hover:underline"
+                >
                   创投早报｜美国商业化核聚变创企获投；音乐版权公司完成融资
                 </div>
-                <div class="text-sm leading-7 multiline-ellipsis">
+                <div class="text-sm sm:leading-7 leading-6 multiline-ellipsis">
                   举办第六届中华印制大奖颁奖典礼、亚洲印刷展览联盟会议、国家主题日等多场专业、先进、丰富的同期活动，全面把握产业趋势与动态，共同探讨印刷业现状和未来。
                 </div>
               </div>
-              <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
+              <div class="flex flex-col gap-7 w-full cursor-pointer" id="news">
+                <div class="aspect-news-box overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new3.jpg"
                     alt=""
                   />
                 </div>
-                <div class="text-xl leading-7 text-[#353535] hover:underline">
+                <div
+                  class="font-semibold leading-6 sm:text-xl sm:leading-7 text-[#353535] hover:underline"
+                >
                   【千龙网】广告行业标准指导性意见将出台
                 </div>
-                <div class="text-sm leading-7 multiline-ellipsis">
+                <div class="text-sm sm:leading-7 leading-6 multiline-ellipsis">
                   国际印刷工业发展论坛由中国印刷及设备器材工业协会主办，始创于2005年，四年一届，已成功举办三届，每届论坛选择5-6个发达国家和5-6个发展中国家印刷协会的主席或总裁发表演讲
                 </div>
               </div>
-              <div class="flex flex-col gap-7 w-87 cursor-pointer" id="news">
-                <div class="sm:w-87 w-42 sm:h-126 sm:65 overflow-hidden">
+              <div
+                class="flex flex-col sm:gap-7 gap-4 w-full cursor-pointer"
+                id="news"
+              >
+                <div class="aspect-news-box overflow-hidden">
                   <img
                     class="w-full h-full object-cover hover:scale-110"
                     src="./asset/news/new4.jpg"
                     alt=""
                   />
                 </div>
-                <div class="text-xl leading-7 text-[#353535] hover:underline">
+                <div
+                  class="font-semibold leading-6 sm:text-xl sm:leading-7 text-[#353535] hover:underline"
+                >
                   支持触觉反馈，Manus VR推出全新Prime VR手套
                 </div>
-                <div class="text-sm leading-7 multiline-ellipsis">
+                <div class="text-sm sm:leading-7 leading-6 multiline-ellipsis">
                   第三届国际印刷工业发展论坛（Forum-PI
                   2013）于2013年5月13日在北京举行，主办方邀请了来自中国、美国、德国、英国、意大利、日本、澳大利亚、俄罗斯、印度、印尼、南非、巴西、
                 </div>
@@ -535,239 +540,305 @@
             </div>
           </div>
           <div class="detail hidden" id="news-detail">
-            <div class="moduleTitle gap-8">
-              <div class="text-border background-text">News Details page</div>
-              <div class="title">新闻详情页</div>
-              <div class="w-32 h-[6px] bg-[#ff350d]"></div>
+            <div class="moduleTitle pt-8 sm:pt-0 sm:items-center sm:gap-8">
+              <div class="text-border background-text px-7 sm:px-0">
+                News Details page
+              </div>
+              <div
+                class="sm:text-[48px] text-[24px] sm:mt-32 z-[9] text-center -mt-6"
+              >
+                新闻详情页
+              </div>
+              <div
+                class="sm:w-32 w-16 sm:h-[6px] h-[3px] bg-[#ff350d] mx-auto mt-4"
+              ></div>
             </div>
-            <div class="article px-45 py-14">
-              <div class="w-full h-165 mb-14">
+            <div class="article sm:px-45 sm:py-14 p-4">
+              <div class="w-full sm:h-165 h-60 sm:mb-14 mb-6">
                 <img
                   class="w-full h-full object-cover"
                   src="./asset/detail/cover1.jpg"
                 />
               </div>
-              <div class="text-[36px] leading-7 text-center mt-5">
+              <div
+                class="sm:text-[36px] sm:leading-7 leading-6 font-semibold text-center mt-5 px-5 sm:px-0"
+              >
                 <span>把小我融入大我，立志作出我们这一代人的历史贡献</span>
               </div>
-              <div class="text-xl leading-7 text-center my-8 text-[#B1B1B1]">
+              <div
+                class="text-[12px] sm:text-xl sm:leading-7 leading-4 text-center my-8 text-[#B1B1B1]"
+              >
                 <span>2022年05月24日 11:35　来源：人民日报</span>
               </div>
-              <div class="leading-7 font-semibold">
+              <div class="leading-7 font-semibold text-sm sm:text-xl">
                 <span
                   >把小我融入大我，立志作出我们这一代人的历史贡献(践行嘱托十年间)</span
                 >
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   2019年1月17日，习近平总书记来到天津南开大学考察调研。在元素有机化学国家重点实验室，总书记勉励师生们把学习奋斗的具体目标同民族复兴的伟大目标结合起来，把小我融入大我，立志作出我们这一代人的历史贡献。
                   正是总书记的谆谆教诲，让南开大学化学学院有机化学专业博士研究生吴雄，坚定了攻读博士学位的信心。3年来，吴雄心无旁骛地投身科研，“作为一名新时代青年，能够为国家作出力所能及的贡献，就是无上荣光”。
                   习近平总书记来到南开大学当天，广场上挤满了学生，大家高呼“总书记好”“总书记辛苦”，齐声高喊“爱我中华、振兴中华”，还唱起《我和我的祖国》。在南开大学，习近平总书记指出，爱国主义是中华民族的民族心、民族魂，培养社会主义建设者和接班人，首先要培养学生的爱国情怀。高校党组织要把抓好学校党建工作和思想政治工作作为办学治校的基本功。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   牢记总书记嘱托，2021年9月7日，在2021级新生开学典礼上，中国工程院院士、南开大学校长曹雪涛为新生讲授的“开学第一课”，主题就是“爱国”。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   “你是中国人吗？”“是！”“你爱中国吗？”“爱！”“你愿意中国好吗？”“愿意！愿祖国繁荣富强！”……1935年，在南开大学开学典礼上，张伯苓校长面对全体南开师生发出著名的“爱国三问”。86年后，曹雪涛带领全体新生一起重温“爱国三问”，发出新时代南开人爱国报国最强音。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   说，更要做。由曹雪涛领衔开设、12位两院院士共同讲授的通识选修课《医药前沿与挑战》，近年来广受师生赞誉。“通过名师大家的精神与风范感召和引领青年学子，进一步涵养他们的爱国报国情怀，这是新时代思政课程的生动实践。”曹雪涛说。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   不只是南开大学。近年来，天津加强党对学校工作的全面领导，各高校党委落实立德树人根本任务，着力构建思政工作大格局。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   集中建设习近平新时代中国特色社会主义思想示范课100节；成立天津市学校爱国主义教育联盟，组织编写十余本爱国主义思政读物；构建大中小幼一体化思想政治教育体系，实现高校专职思政课教师、辅导员“双配齐”；推出10节思政品牌课、100节思政示范课、1000节思政优质课；引导每位思政课教师都有一节“叫好又叫座”“感动又触动”的思政金课……在习近平新时代中国特色社会主义思想哺育下，爱国主义正在成为天津青少年的坚定信念、精神力量和自觉行动。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px my-7">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px my-7">
                 <span> 本报记者 武少民 【编辑:孙静波】 </span>
               </div>
-              <div class="w-full h-165 mb-8">
+              <div class="w-full sm:h-165 h-60 sm:mb-14 mb-6">
                 <img
                   class="w-full h-full object-cover"
                   src="./asset/detail/cover2.jpg"
                 />
               </div>
-              <div class="leading-7 font-semibold">
+              <div
+                class="sm:leading-7 leading-6 font-semibold text-sm sm:text-xl"
+              >
                 <span
                   >把小我融入大我，立志作出我们这一代人的历史贡献(践行嘱托十年间)</span
                 >
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   2019年1月17日，习近平总书记来到天津南开大学考察调研。在元素有机化学国家重点实验室，总书记勉励师生们把学习奋斗的具体目标同民族复兴的伟大目标结合起来，把小我融入大我，立志作出我们这一代人的历史贡献。
                   正是总书记的谆谆教诲，让南开大学化学学院有机化学专业博士研究生吴雄，坚定了攻读博士学位的信心。3年来，吴雄心无旁骛地投身科研，“作为一名新时代青年，能够为国家作出力所能及的贡献，就是无上荣光”。
                   习近平总书记来到南开大学当天，广场上挤满了学生，大家高呼“总书记好”“总书记辛苦”，齐声高喊“爱我中华、振兴中华”，还唱起《我和我的祖国》。在南开大学，习近平总书记指出，爱国主义是中华民族的民族心、民族魂，培养社会主义建设者和接班人，首先要培养学生的爱国情怀。高校党组织要把抓好学校党建工作和思想政治工作作为办学治校的基本功。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   牢记总书记嘱托，2021年9月7日，在2021级新生开学典礼上，中国工程院院士、南开大学校长曹雪涛为新生讲授的“开学第一课”，主题就是“爱国”。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   “你是中国人吗？”“是！”“你爱中国吗？”“爱！”“你愿意中国好吗？”“愿意！愿祖国繁荣富强！”……1935年，在南开大学开学典礼上，张伯苓校长面对全体南开师生发出著名的“爱国三问”。86年后，曹雪涛带领全体新生一起重温“爱国三问”，发出新时代南开人爱国报国最强音。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   说，更要做。由曹雪涛领衔开设、12位两院院士共同讲授的通识选修课《医药前沿与挑战》，近年来广受师生赞誉。“通过名师大家的精神与风范感召和引领青年学子，进一步涵养他们的爱国报国情怀，这是新时代思政课程的生动实践。”曹雪涛说。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   不只是南开大学。近年来，天津加强党对学校工作的全面领导，各高校党委落实立德树人根本任务，着力构建思政工作大格局。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   集中建设习近平新时代中国特色社会主义思想示范课100节；成立天津市学校爱国主义教育联盟，组织编写十余本爱国主义思政读物；构建大中小幼一体化思想政治教育体系，实现高校专职思政课教师、辅导员“双配齐”；推出10节思政品牌课、100节思政示范课、1000节思政优质课；引导每位思政课教师都有一节“叫好又叫座”“感动又触动”的思政金课……在习近平新时代中国特色社会主义思想哺育下，爱国主义正在成为天津青少年的坚定信念、精神力量和自觉行动。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px my-7">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px my-7">
                 <span> 本报记者 武少民 【编辑:孙静波】 </span>
               </div>
-              <div class="leading-7 font-semibold">
+              <div
+                class="sm:leading-7 leading-6 font-semibold text-sm sm:text-xl"
+              >
                 <span
                   >把小我融入大我，立志作出我们这一代人的历史贡献(践行嘱托十年间)</span
                 >
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   2019年1月17日，习近平总书记来到天津南开大学考察调研。在元素有机化学国家重点实验室，总书记勉励师生们把学习奋斗的具体目标同民族复兴的伟大目标结合起来，把小我融入大我，立志作出我们这一代人的历史贡献。
                   正是总书记的谆谆教诲，让南开大学化学学院有机化学专业博士研究生吴雄，坚定了攻读博士学位的信心。3年来，吴雄心无旁骛地投身科研，“作为一名新时代青年，能够为国家作出力所能及的贡献，就是无上荣光”。
                   习近平总书记来到南开大学当天，广场上挤满了学生，大家高呼“总书记好”“总书记辛苦”，齐声高喊“爱我中华、振兴中华”，还唱起《我和我的祖国》。在南开大学，习近平总书记指出，爱国主义是中华民族的民族心、民族魂，培养社会主义建设者和接班人，首先要培养学生的爱国情怀。高校党组织要把抓好学校党建工作和思想政治工作作为办学治校的基本功。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   牢记总书记嘱托，2021年9月7日，在2021级新生开学典礼上，中国工程院院士、南开大学校长曹雪涛为新生讲授的“开学第一课”，主题就是“爱国”。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   “你是中国人吗？”“是！”“你爱中国吗？”“爱！”“你愿意中国好吗？”“愿意！愿祖国繁荣富强！”……1935年，在南开大学开学典礼上，张伯苓校长面对全体南开师生发出著名的“爱国三问”。86年后，曹雪涛带领全体新生一起重温“爱国三问”，发出新时代南开人爱国报国最强音。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   说，更要做。由曹雪涛领衔开设、12位两院院士共同讲授的通识选修课《医药前沿与挑战》，近年来广受师生赞誉。“通过名师大家的精神与风范感召和引领青年学子，进一步涵养他们的爱国报国情怀，这是新时代思政课程的生动实践。”曹雪涛说。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   不只是南开大学。近年来，天津加强党对学校工作的全面领导，各高校党委落实立德树人根本任务，着力构建思政工作大格局。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px">
                 <span>
                   集中建设习近平新时代中国特色社会主义思想示范课100节；成立天津市学校爱国主义教育联盟，组织编写十余本爱国主义思政读物；构建大中小幼一体化思想政治教育体系，实现高校专职思政课教师、辅导员“双配齐”；推出10节思政品牌课、100节思政示范课、1000节思政优质课；引导每位思政课教师都有一节“叫好又叫座”“感动又触动”的思政金课……在习近平新时代中国特色社会主义思想哺育下，爱国主义正在成为天津青少年的坚定信念、精神力量和自觉行动。
                 </span>
               </div>
-              <div class="text-sm leading-7 text-indent-28px my-7">
+              <div class="text-sm sm:leading-7 leading-6 text-indent-28px my-7">
                 <span> 本报记者 武少民 【编辑:孙静波】 </span>
               </div>
             </div>
           </div>
         </div>
-        <div class="about hidden" id="nav-content">
-          <div class="moduleTitle gap-8">
-            <div class="text-border background-text title-text">About us</div>
-            <div class="title">关于我们</div>
-            <div class="w-32 h-[6px] bg-[#ff350d]"></div>
+        <div class="about hidden pt-8 sm:pt-25" id="nav-content">
+          <div class="moduleTitle pt-14 sm:pt-0 items-center sm:gap-8">
+            <div
+              class="text-border background-text px-7 sm:px-0 translate-x-1/4 sm:translate-x-0"
+            >
+              About us
+            </div>
+            <div
+              class="sm:text-[48px] text-[24px] sm:mt-32 z-[9] text-center -mt-6"
+            >
+              关于我们
+            </div>
+            <div class="sm:w-32 w-16 sm:h-[6px] h-[3px] bg-[#ff350d] mx-auto
+            mt-4"">
           </div>
-          <div class="flex gap-[36px] px-[180px] pt-[54px] pb-[182px]">
-            <div class="map" id="map"></div>
-            <div class="w-[750px] h-[310px] flex flex-col gap-[24px]">
-              <div class="text-[24px] leading-[28px]">
-                一家专注系统高端定制开发的公司
+        </div>
+        <div
+          class="sm:flex gap-[36px] sm:px-[168px] sm:pt-[54px] sm:pb-[182px]"
+        >
+          <div
+            class="map w-full sm:w-[750px] aspect-map-box mt-4 sm:mt-0"
+            id="map"
+          ></div>
+          <div class="sm:flex-1 w-full flex flex-col sm:gap-6 gap-3 p-4 sm:p-0">
+            <div
+              class="sm:text-[24px] sm:text-[18px] leading-[28px] font-semibold w-full"
+            >
+              一家专注系统高端定制开发的公司
+            </div>
+            <div
+              class="text-[14px] sm:leading-7 leading-6 w-[774px] w-full text-[#353535]"
+            >
+              <div>
+                互联网指的是是网络与网络之间所串连成的庞大网络，这些网络以一组通用的协议相连，形成逻辑上的单一巨大国际网络。
               </div>
-              <div class="text-[14px] leading-[28px] w-[774px]">
-                <div>
-                  互联网指的是是网络与网络之间所串连成的庞大网络，这些网络以一组通用的协议相连，形成逻辑上的单一巨大国际网络。
-                </div>
-                <div>
-                  互联网始于1969年美国的阿帕网。这种将计算机网络互相联接在一起的方法可称作“网络互联”，在这基础上发展出覆盖全世界的全球性互联网络称互联网，即是互相连接一起的网络结构。
-                </div>
-                <div>
-                  我们出色的专业开发团队扎实的技术支持，优质高效的服务意识和丰厚的资源优势，提供专业的网站建设，微信小程序，APP开发，等技术服务。成果，专注于为客户提供专业有效的互联网系统解决方案。
-                </div>
+              <div>
+                互联网始于1969年美国的阿帕网。这种将计算机网络互相联接在一起的方法可称作“网络互联”，在这基础上发展出覆盖全世界的全球性互联网络称互联网，即是互相连接一起的网络结构。
               </div>
-              <div class="flex flex-col gap-4">
-                <div class="flex items-center text-sm gap-3">
-                  <div class="w-4 h-4">
-                    <img
-                      class="w-full h-full object-cover"
-                      src="./asset/icon/address.png"
-                      alt=""
-                    />
-                  </div>
-                  <div class="text">
-                    地址：中国山东省青岛市市南区某某中路20号
-                  </div>
+              <div>
+                我们出色的专业开发团队扎实的技术支持，优质高效的服务意识和丰厚的资源优势，提供专业的网站建设，微信小程序，APP开发，等技术服务。成果，专注于为客户提供专业有效的互联网系统解决方案。
+              </div>
+            </div>
+            <div class="flex flex-col gap-4 text-[#353535]">
+              <div class="flex items-center text-sm gap-3">
+                <div class="w-4 h-4">
+                  <img
+                    class="w-full h-full object-cover"
+                    src="./asset/icon/address.png"
+                    alt=""
+                  />
                 </div>
-                <div class="flex items-center text-sm gap-3">
-                  <div class="w-4 h-4">
-                    <img
-                      class="w-full h-full object-cover"
-                      src="./asset/icon/mail.png"
-                      alt=""
-                    />
-                  </div>
-                  <div class="text">邮箱：1370XXX171@qq.com</div>
+                <div class="text">地址：中国山东省青岛市市南区某某中路20号</div>
+              </div>
+              <div class="flex items-center text-sm gap-3">
+                <div class="w-4 h-4">
+                  <img
+                    class="w-full h-full object-cover"
+                    src="./asset/icon/mail.png"
+                    alt=""
+                  />
                 </div>
-                <div class="flex items-center text-sm gap-3">
-                  <div class="w-4 h-4">
-                    <img
-                      class="w-full h-full object-cover"
-                      src="./asset/icon/telephone.png"
-                      alt=""
-                    />
-                  </div>
-                  <div class="text">电话：0591-88888888</div>
+                <div class="text">邮箱：1370XXX171@qq.com</div>
+              </div>
+              <div class="flex items-center text-sm gap-3">
+                <div class="w-4 h-4">
+                  <img
+                    class="w-full h-full object-cover"
+                    src="./asset/icon/telephone.png"
+                    alt=""
+                  />
                 </div>
+                <div class="text">电话：0591-88888888</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- d底部 -->
+    </div>
+    <!-- d底部 -->
+    <div
+      class="w-full bg-[#ff350d] flex flex-col sm:items-center justify-center gap-6 sm:gap-[48px] sm:p-12 px-8 py-4"
+    >
       <div
-        class="w-full bg-[#ff350d] flex flex-col sm:items-center justify-center gap-6 sm:gap-[48px] sm:p-12 px-8 py-4"
+        class="text-white text-[12px] sm:text-[16px] font-semibold flex flex-col sm:flex-row justify-between sm:gap-[128px] gap-3"
       >
+        <div class="info-item">地址：中国山东省青岛市市南区某某中路20号</div>
+        <div class="info-item">邮箱：1370XXX171@qq.com</div>
+        <div class="info-item">电话：0591-88888888</div>
+      </div>
+      <div
+        class="flex items-center text-white sm:gap-3 gap-1 text-[12px] sm:text-[16px]"
+      >
+        <div class="sm:w-[50px] sm:h-[50px] size-9">
+          <img
+            class="w-full h-full object-cover"
+            src="./asset/qr/qrcode.png"
+            alt=""
+          />
+        </div>
+        <div class="flex-1">
+          Copyright © 2009 - 2022 Cld , All Rights Reserved 某某网络科技有限公司
+          版权所有 陕ICP备xxxxxxx号
+        </div>
+      </div>
+    </div>
+    <div
+      id="drawer"
+      class="bg-[#252429] text-[#fff] fixed top-0 right-0 h-full w-80 shadow-lg z-50 transform translate-x-full transition-transform duration-300"
+    >
+      <div class="p-4 flex justify-between items-center">
+        <h2 class="text-lg font-semibold"></h2>
         <div
-          class="text-white text-[12px] sm:text-[16px] font-semibold flex flex-col sm:flex-row justify-between sm:gap-[128px] gap-3"
+          id="closeDrawer"
+          class="text-gray-500 hover:text-gray-800 size-8 text-[32px] items-center justify-center flex"
         >
-          <div class="info-item">地址：中国山东省青岛市市南区某某中路20号</div>
-          <div class="info-item">邮箱：1370XXX171@qq.com</div>
-          <div class="info-item">电话：0591-88888888</div>
+          &times;
+        </div>
+      </div>
+      <div class="p-4 flex flex-col z-99">
+        <div
+          class="menu-item p-2 h-[60px] border-b-1 border-[#333333] text-[#ff350d]"
+          data-target="home"
+        >
+          首页
         </div>
         <div
-          class="flex items-center text-white sm:gap-3 gap-1 text-[12px] sm:text-[16px]"
+          class="menu-item p-2 h-[112px] border-b-1 border-[#333333] leading-[112px]"
+          data-target="news"
         >
-          <div class="sm:w-[50px] sm:h-[50px] size-9">
-            <img
-              class="w-full h-full object-cover"
-              src="./asset/qr/qrcode.png"
-              alt=""
-            />
-          </div>
-          <div class="flex-1">
-            Copyright © 2009 - 2022 Cld , All Rights Reserved
-            某某网络科技有限公司 版权所有 陕ICP备xxxxxxx号
-          </div>
+          新闻列表页
+        </div>
+        <div
+          class="menu-item p-2 h-[112px] leading-[112px]"
+          data-target="about"
+        >
+          关于我们
         </div>
       </div>
     </div>
