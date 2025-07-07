@@ -4,6 +4,7 @@ const gotoInput = document.getElementById("gotoInput");
 
 let currentPage = 1;
 let totalPages = 100; // 假设总页数是100
+let pageSize = 8; // 默认每页显示10条
 
 function renderPages() {
   pageNumbersContainer.innerHTML = "";
@@ -23,7 +24,7 @@ function renderPages() {
     btn.onclick = () => {
       if (!disabled) {
         currentPage = page;
-        renderPages();
+        renderNewsList();
       }
     };
     return btn;
@@ -68,15 +69,14 @@ gotoInput.addEventListener("change", () => {
   const value = parseInt(gotoInput.value);
   if (!isNaN(value) && value >= 1 && value <= totalPages) {
     currentPage = value;
-    renderPages();
+    renderNewsList();
   }
 });
 
 // 条数选择功能（这里暂时只打印）
 pageSizeSelect.addEventListener("change", () => {
-  const size = pageSizeSelect.value;
-  console.log("每页条数：", size);
-  // 实际中应重新计算 totalPages 或重新请求数据
+  pageSize = pageSizeSelect.value;
+  renderNewsList();
 });
 
-renderPages();
+
