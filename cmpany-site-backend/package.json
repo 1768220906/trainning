@@ -4,6 +4,7 @@
   "description": "A Node.js backend project",
   "main": "src/app.js",
   "scripts": {
+    "prod":" pm2 start src/app.js --name conpany-site-backend",
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "test": "jest",

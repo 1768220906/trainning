@@ -8,7 +8,7 @@ const axios = require("axios");
 // token
 const apikey = process.env.NEWS_API_KEY;
 const category = "general";
-const country = "uc";
+// const country = "uc";
 const lang = "zh";
 
 const url = "https://gnews.io/api/v4/top-headlines";
@@ -19,7 +19,7 @@ function getNews() {
     params: {
       apikey,
       lang,
-      country,
+      // country,
       category,
     },
   });
