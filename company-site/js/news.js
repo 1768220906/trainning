@@ -1,8 +1,8 @@
-const baseUrl = "http://localhost:8080/api";
+const baseUrl = "http://localhost:8080/api/";
 
 // 新闻请求
 async function fetchNewsList(params = {}) {
-  const url = baseUrl + "/news/list";
+  const url = baseUrl + "api/news/list";
   const urlParams = new URLSearchParams(params).toString();
   const fullUrl = `${url}?${urlParams}`;
   const res = await fetch(fullUrl);
