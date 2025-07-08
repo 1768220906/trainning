@@ -1,5 +1,5 @@
-// const baseUrl = "http://localhost:8080/api/";   //本地
-const baseUrl = "/api/";   // prod
+const baseUrl = "http://localhost:8080/"; //本地
+// const baseUrl = "/api/";   // prod
 
 // 新闻请求
 async function fetchNewsList(params = {}) {
@@ -46,6 +46,11 @@ function renderList(listData) {
   listData.forEach((item) => {
     const newsItem = document.createElement("div");
     newsItem.innerHTML = newsItemTemplate(item);
+    // 给所有新闻添加上点击事件
+    newsItem.addEventListener("click", () => {
+      newsListContainer.classList.add("hidden");
+      newsDetailContainer.classList.remove("hidden");
+    });
     listFragment.appendChild(newsItem);
   });
   newsListContent.appendChild(listFragment);

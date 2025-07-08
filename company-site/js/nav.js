@@ -9,7 +9,6 @@ logo.addEventListener("click", reload);
 // doms
 const navs = document.querySelectorAll("#nav");
 const navContents = document.querySelectorAll("#nav-content");
-const newsItemList = document.querySelectorAll("#news");
 const newsListContainer = document.querySelector("#news-list");
 const newsDetailContainer = document.querySelector("#news-detail");
 
@@ -29,7 +28,6 @@ function clearNavContentCurrent() {
 
 // 给所有nav添加点击事件
 function addNavClick() {
-
   navs.forEach((nav, index) => {
     nav.addEventListener("click", (event) => {
       clearNavActive();
@@ -47,23 +45,6 @@ function addNavClick() {
       newsListContainer.classList.remove("hidden");
     });
   });
-}
-
-// 给所有新闻添加上点击事件
-function addNewsClick() {
-  newsItemList.forEach((item) => {
-    item.addEventListener("click", () => {
-      newsListContainer.classList.add("hidden");
-      newsDetailContainer.classList.remove("hidden");
-    });
-  });
-}
 
 
-
-function initEvent() {
-  addNavClick();
-  addNewsClick();
-}
-
-initEvent()
+addNavClick();
