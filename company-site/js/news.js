@@ -1,5 +1,5 @@
-// const baseUrl = "http://localhost:8080/";   //本地
-const baseUrl = "http://47.109.155.128/api/";   // prod
+// const baseUrl = "http://localhost:8080/api/";   //本地
+const baseUrl = "/api/";   // prod
 
 // 新闻请求
 async function fetchNewsList(params = {}) {
