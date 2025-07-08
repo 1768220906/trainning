@@ -4,21 +4,35 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const compression = require("compression");
 const rateLimit = require("express-rate-limit");
-require("dotenv").config({ path: ".env.dev" });
 
 const newsRoutes = require("./routes/news");
 const { errorHandler, notFound } = require("./middleware/errorMiddleware");
 
-console.log(process.env.FRONTEND_URL);
+const env = process.env.NODE_ENV || "dev";
+
+require("dotenv").config({
+  path: `.env.${env}`, // 如 .env.dev、.env.prod、.env.test
+});
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+const whitelist = [
+  "http://127.0.0.1:3000",
+  process.env.FRONTEND_URL_dev,
+];
 
 // 安全中间件
 app.use(helmet());
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      if (!origin || whitelist.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );

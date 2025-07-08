@@ -1,31 +1,9 @@
 const express = require("express");
 const { asyncHandler } = require("../middleware/asyncHandler");
-const { authenticate } = require("../middleware/authMiddleware");
+const { getNews } = require("../services/newsService");
 
 const router = express.Router();
-const axios = require("axios");
 
-// token
-const apikey = process.env.NEWS_API_KEY;
-const category = "general";
-// const country = "uc";
-const lang = "zh";
-
-const url = "https://gnews.io/api/v4/top-headlines";
-
-// 获取新闻函数
-function getNews() {
-  return axios.get(url, {
-    params: {
-      apikey,
-      lang,
-      // country,
-      category,
-    },
-  });
-}
-
-// 获取新闻列表
 router.get(
   "/list",
   [],
@@ -33,29 +11,30 @@ router.get(
     const page = Number.parseInt(req.query.page) || 1;
     const pageSize = Number.parseInt(req.query.pageSize) || 10;
 
-    const result = await getNews();
-    if (result.status !== 200) {
-      return res.status(500).json({
-        success: false,
-        message: "Failed to get news list",
-      });
-    }
+    // 可选参数支持前端传入
+    const country = req.query.country || "uc";
+    const category = req.query.category || "general";
+    const lang = req.query.lang || "zh";
+    const q = req.query.q;
 
-    console.log(page, pageSize);
+    const result = await getNews({
+      country,
+      category,
+      lang,
+      q,
+    });
 
-    const total = parseInt(result.data.totalArticles / pageSize);
-    const articles = result.data.articles;
+    const articles = result.data.articles || [];
 
+    const total = result.data.totalArticles || articles.length;
+
+    // 手动分页
     const startIndex = (page - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
-    const data = articles.slice(startIndex, endIndex);
-
-    console.log("total articles:", articles.length);
-    console.log("slicing from", startIndex, "to", endIndex);
+    const paginated = articles.slice(startIndex, startIndex + pageSize);
 
     res.status(200).json({
       success: true,
-      data: data,
+      data: paginated,
       links: {
         total,
         current: page,
