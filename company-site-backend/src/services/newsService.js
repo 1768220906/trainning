@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { getArticleContent } = require("../utils/crawlArticle");
 
 const BASE_URL = "https://gnews.io/api/v4/top-headlines";
 
@@ -55,6 +56,13 @@ async function getNews(options = {}) {
   }
 }
 
+// 获取新闻详情
+async function getNewsDetail(URL) {
+  const content = await getArticleContent(URL);
+  return { content };
+}
+
 module.exports = {
   getNews,
+  getNewsDetail
 };

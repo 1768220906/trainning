@@ -1,6 +1,6 @@
 const express = require("express");
 const { asyncHandler } = require("../middleware/asyncHandler");
-const { getNews } = require("../services/newsService");
+const { getNews,getNewsDetail } = require("../services/newsService");
 
 const router = express.Router();
 
@@ -40,6 +40,20 @@ router.get(
         current: page,
         pageSize,
       },
+    });
+  })
+);
+
+router.post(
+  "/detail",
+  [],
+  asyncHandler(async (req, res) => {
+    const newsURL = req.body.url;
+    const result = await getNewsDetail(newsURL);
+    
+    res.status(200).json({
+      success: true,
+      data: result.content,
     });
   })
 );
