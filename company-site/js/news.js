@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8080/"; //本地
+const baseUrl = window.API_BASE_URL === "__API_BASE_URL__" ? "http://localhost:8080/" : window.API_BASE_URL; //本地
 // const baseUrl = "/api/";   // prod
 
 // 新闻请求

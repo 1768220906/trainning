@@ -45,6 +45,6 @@ function addNavClick() {
       newsListContainer.classList.remove("hidden");
     });
   });
-
+}
 
 addNavClick();
