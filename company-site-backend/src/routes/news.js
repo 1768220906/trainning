@@ -4,6 +4,13 @@ const { getNews,getNewsDetail } = require("../services/newsService");
 
 const router = express.Router();
 
+const crypto = require('crypto');
+
+// 生成UUID
+function generateUUID() {
+  return crypto.randomUUID(); // Node.js 14.17+
+}
+
 router.get(
   "/list",
   [],
@@ -23,14 +30,18 @@ router.get(
       lang,
       q,
     });
-
     const articles = result.data.articles || [];
 
     const total = result.data.totalArticles || articles.length;
 
     // 手动分页
     const startIndex = (page - 1) * pageSize;
-    const paginated = articles.slice(startIndex, startIndex + pageSize);
+    const paginated = articles.slice(startIndex, startIndex + pageSize).map((news) => {
+      return{
+        ...news,
+        uuid: generateUUID(),
+      }
+    });
 
     res.status(200).json({
       success: true,
@@ -44,16 +55,15 @@ router.get(
   })
 );
 
-router.post(
+router.get(
   "/detail",
   [],
   asyncHandler(async (req, res) => {
-    const newsURL = req.body.url;
-    const result = await getNewsDetail(newsURL);
+    const result = await getNewsDetail();
     
     res.status(200).json({
       success: true,
-      data: result.content,
+      data: result.data,
     });
   })
 );

@@ -2,6 +2,8 @@ const axios = require("axios");
 const { getArticleContent } = require("../utils/crawlArticle");
 
 const BASE_URL = "https://gnews.io/api/v4/top-headlines";
+const fs = require("fs/promises");
+const { resolve } = require("path");
 
 // 默认参数
 const DEFAULT_PARAMS = {
@@ -10,6 +12,7 @@ const DEFAULT_PARAMS = {
   category: "general",
   page: 1,
   pageSize: 10,
+  mock: true,
 };
 
 /**
@@ -36,6 +39,23 @@ async function getNews(options = {}) {
     apikey,
   };
 
+  if (params.mock) {
+    try {
+      const jsonStr = await fs.readFile(
+        resolve(__dirname, "news.json"),
+        "utf-8"
+      );
+      const articles = JSON.parse(jsonStr);
+      return {
+        status: 200,
+        data: { articles, totalArticles: articles.length },
+      };
+    } catch (err) {
+      console.error("读取或解析失败:", err);
+      throw new Error("Failed to read or parse news data.");
+    }
+  }
+
   try {
     const response = await axios.get(BASE_URL, { params });
     return {
@@ -57,12 +77,24 @@ async function getNews(options = {}) {
 }
 
 // 获取新闻详情
-async function getNewsDetail(URL) {
-  const content = await getArticleContent(URL);
-  return { content };
+async function getNewsDetail() {
+  try {
+    const jsonStr = await fs.readFile(
+      resolve(__dirname, "news-detail.json"),
+      "utf-8"
+    );
+    const article = JSON.parse(jsonStr);
+    return {
+      status: 200,
+      data: article,
+    };
+  } catch (err) {
+    console.error("读取或解析失败:", err);
+    throw new Error("Failed to read or parse news data.");
+  }
 }
 
 module.exports = {
   getNews,
-  getNewsDetail
+  getNewsDetail,
 };
