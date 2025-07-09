@@ -21,7 +21,7 @@ Thumbs.db
 *.sln
 
 # 如果使用了 dist、build 等构建输出目录，也可以忽略
-dist/
+# dist/
 build/
 out/
 
