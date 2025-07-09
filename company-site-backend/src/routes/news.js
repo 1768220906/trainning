@@ -4,13 +4,6 @@ const { getNews,getNewsDetail } = require("../services/newsService");
 
 const router = express.Router();
 
-const crypto = require('crypto');
-
-// 生成UUID
-function generateUUID() {
-  return crypto.randomUUID(); // Node.js 14.17+
-}
-
 router.get(
   "/list",
   [],
@@ -36,12 +29,7 @@ router.get(
 
     // 手动分页
     const startIndex = (page - 1) * pageSize;
-    const paginated = articles.slice(startIndex, startIndex + pageSize).map((news) => {
-      return{
-        ...news,
-        uuid: generateUUID(),
-      }
-    });
+    const paginated = articles.slice(startIndex, startIndex + pageSize)
 
     res.status(200).json({
       success: true,
