@@ -46,8 +46,9 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <!-- 自定义代码 -->
-  <script src="./dist/request.js"></script>
-  <script src="./dist/service.js"></script>
+  <script src="/dist/request.js"></script>
+  <script src="/dist/service.js"></script>
+  <script src="/dist/utils.js"></script>
 
   <!-- React Router -->
   <script type="text/babel">
@@ -128,74 +129,69 @@
 
   <!-- 首页 -->
   <script type="text/babel">
-    function HotProjectItem() {
+    function HotProjectItem(props) {
+      const { item } = props;
       return (
         <div className="project-item">
-          <div className="order">#1</div>
+          <div className="order">#{item.order}</div>
           <div className="cover">
-            <img
-              src="https://avatars.githubusercontent.com/u/9892522?v=4"
-              alt=""
-            />
+            <img src={item.owner.avatar_url} alt={item.name} />
           </div>
-          <div className="title">freeCodeCamp</div>
+          <div className="title">{item.name}</div>
           <div className="description">
             <div className="info owner">
               <div className="icon">
                 <i className="fa fa-user"></i>
               </div>
-              <div className="text">freeCodeCamp</div>
+              <div className="text">{item.owner.login}</div>
             </div>
             <div className="info star">
               <div className="icon">
                 <i className="fa fa-star"></i>
               </div>
-              <div className="text">305900 stars</div>
+              <div className="text">{item.stargazers_count} stars</div>
             </div>
             <div className="info fork">
               <div className="icon">
                 <i className="fa fa-code-fork"></i>
               </div>
-              <div className="text">12345 forks</div>
+              <div className="text">{item.forks_count} forks</div>
             </div>
             <div className="info issue">
               <div className="icon">
                 <i className="fa fa-exclamation-circle"></i>
               </div>
-              <div className="text">370 open issues</div>
+              <div className="text">{item.open_issues_count} open issues</div>
             </div>
           </div>
         </div>
       );
     }
 
-    function BookPages() {
-      const arr = Array.from({ length: 12 }, (_, i) => i);
+    function BookPages(props) {
+      const { items } = props;
+
       return (
         <div className="page-content">
           <div className="project-opration">pre</div>
           <div className="project-list">
-            {arr.map((item, index) => (
-              <HotProjectItem key={index} />
+            {items.map((item) => (
+              <HotProjectItem key={item.id} item={item} />
             ))}
           </div>
         </div>
       );
     }
 
-    function Header() {
-      return (
-        <div className="header-container">
-          <div></div>
-        </div>
-      );
-    }
-
     function Content() {
-      const { useRef } = React;
+      const { useRef, useState } = React;
 
       const bookRef = useRef(null);
       const pageFlipRef = useRef(null);
+
+      const [currentPage, setCurrentPage] = useState(1);
+      const [totalPage, setTotalPage] = useState(1);
+      const [listData, setListData] = useState([]);
 
       const setting = {
         width: 550,
@@ -210,6 +206,11 @@
         mobileScrollSupport: false,
       };
 
+      const initParams = {
+        q: "language:javascript",
+        page: 1,
+        per_page: 120,
+      };
       const nextPage = () => {
         pageFlipRef.current.flipNext();
       };
@@ -217,8 +218,23 @@
         pageFlipRef.current.flipPrev();
       };
 
+      // 获取github 热门项目数据
+      const getGithubData = async () => {
+        const data = await getHotProjects(initParams);
+        const { items, total_count } = data;
+        const total = Math.ceil(total_count / 12);
+        const list = chunkArray(items);
+
+        setListData(list);
+        setTotalPage(total);
+      };
+
       useEffect(() => {
-        if (!bookRef.current || !window.St) {
+        getGithubData();
+      }, []);
+
+      useEffect(() => {
+        if (!bookRef.current || !window.St || listData.length === 0) {
           return;
         }
 
@@ -233,23 +249,29 @@
 
         // triggered when page orientation changes
         pageFlipRef.current.on("changeOrientation", (e) => {});
-      }, []);
+      }, [listData]);
 
       return (
         <div className="book-container w-full sm:p-20 overflow-hidden">
           <div className="flip-book" id="demoBookExample" ref={bookRef}>
-            <div className="page page-cover page-cover-top" data-density="soft">
-              <BookPages />
-            </div>
-            <div
-              className="page page-cover page-cover-bottom"
-              data-density="soft"
-            >
-              <div className="page-content">
-                <BookPages />
+            {listData.map((items, index) => (
+              <div
+                className="page page-cover page-cover-top"
+                data-density="soft"
+                key={index}
+              >
+                <BookPages items={items} />
               </div>
-            </div>
+            ))}
           </div>
+        </div>
+      );
+    }
+
+    function Header() {
+      return (
+        <div className="header-container">
+          <div></div>
         </div>
       );
     }

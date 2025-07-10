@@ -47,7 +47,10 @@
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  color: #295500;
+  color: #204200;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .project-item .description {
@@ -70,9 +73,12 @@
   width: 24px;
   height: 24px;
   font-size: 18px;
-  color: #a9aa68;
+  color: #316400;
 }
 .project-item .description .info .text {
   font-weight: 600;
   color: #202425;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
