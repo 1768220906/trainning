@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hot Github Non</title>
+    <link rel="stylesheet" href="/dist/book.css" />
+    <link rel="stylesheet" href="/dist/page.css" />
     <!-- Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Font Awesome -->
@@ -13,7 +15,13 @@
       integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
       crossorigin="anonymous"
     />
+    <!-- StPageFlip -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/src/Style/stPageFlip.min.css"
+    />
   </head>
+
   <body>
     <div id="root"></div>
   </body>
@@ -31,6 +39,8 @@
   ></script>
   <!-- Axios -->
   <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin></script>
+  <!-- StPageFlip -->
+  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 
   <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -116,14 +126,146 @@
     }
   </script>
 
+  <!-- 首页 -->
   <script type="text/babel">
-    // 示例组件
-    function Home() {
+    function HotProjectItem() {
       return (
-          <div className="text-center text-6xl"> 🎉 Welcome to home page </div>
+        <div className="project-item">
+          <div className="order">#1</div>
+          <div className="cover">
+            <img
+              src="https://avatars.githubusercontent.com/u/9892522?v=4"
+              alt=""
+            />
+          </div>
+          <div className="title">freeCodeCamp</div>
+          <div className="description">
+            <div className="info owner">
+              <div className="icon">
+                <i className="fa fa-user"></i>
+              </div>
+              <div className="text">freeCodeCamp</div>
+            </div>
+            <div className="info star">
+              <div className="icon">
+                <i className="fa fa-star"></i>
+              </div>
+              <div className="text">305900 stars</div>
+            </div>
+            <div className="info fork">
+              <div className="icon">
+                <i className="fa fa-code-fork"></i>
+              </div>
+              <div className="text">12345 forks</div>
+            </div>
+            <div className="info issue">
+              <div className="icon">
+                <i className="fa fa-exclamation-circle"></i>
+              </div>
+              <div className="text">370 open issues</div>
+            </div>
+          </div>
+        </div>
       );
     }
 
+    function BookPages() {
+      const arr = Array.from({ length: 12 }, (_, i) => i);
+      return (
+        <div className="page-content">
+          <div className="project-opration">pre</div>
+          <div className="project-list">
+            {arr.map((item, index) => (
+              <HotProjectItem key={index} />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function Header() {
+      return (
+        <div className="header-container">
+          <div></div>
+        </div>
+      );
+    }
+
+    function Content() {
+      const { useRef } = React;
+
+      const bookRef = useRef(null);
+      const pageFlipRef = useRef(null);
+
+      const setting = {
+        width: 550,
+        height: 733,
+        size: "stretch", // ✅ 自动响应单页或双页
+        minWidth: 315,
+        maxWidth: 1000,
+        minHeight: 420,
+        maxHeight: 1350,
+        maxShadowOpacity: 0.5,
+        showCover: false, // 建议设置为 false，让第一页也可以成对显示
+        mobileScrollSupport: false,
+      };
+
+      const nextPage = () => {
+        pageFlipRef.current.flipNext();
+      };
+      const prevPage = () => {
+        pageFlipRef.current.flipPrev();
+      };
+
+      useEffect(() => {
+        if (!bookRef.current || !window.St) {
+          return;
+        }
+
+        pageFlipRef.current = new window.St.PageFlip(bookRef.current, setting);
+        const pages = document.querySelectorAll(".page");
+        pageFlipRef.current.loadFromHTML(pages);
+        // triggered by page turning
+        pageFlipRef.current.on("flip", (e) => {});
+
+        // triggered when the state of the book changes
+        pageFlipRef.current.on("changeState", (e) => {});
+
+        // triggered when page orientation changes
+        pageFlipRef.current.on("changeOrientation", (e) => {});
+      }, []);
+
+      return (
+        <div className="book-container w-full sm:p-20 overflow-hidden">
+          <div className="flip-book" id="demoBookExample" ref={bookRef}>
+            <div className="page page-cover page-cover-top" data-density="soft">
+              <BookPages />
+            </div>
+            <div
+              className="page page-cover page-cover-bottom"
+              data-density="soft"
+            >
+              <div className="page-content">
+                <BookPages />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 首页
+    function Home() {
+      return (
+        <div className="flex flex-col justify-center items-center">
+          <Header />
+          <Content />
+        </div>
+      );
+    }
+  </script>
+
+  <script type="text/babel">
     function About() {
       return <div className="text-center text-6xl">📄 About Page</div>;
     }

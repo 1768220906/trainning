@@ -1,0 +1,35 @@
+.flip-book {
+  box-shadow: 0 0 20px 0 #00000080; /* rgba(0,0,0,0.5) */
+  display: none;
+}
+
+.page {
+  padding: 36px;
+  overflow: hidden;
+  background-color: #e3d0b5; /* hsl(35, 45%, 80%) */
+  color: #785e3a; /* hsl(35, 35%, 35%) */
+  border: solid 1px #9c8263; /* hsl(35, 20%, 50%) */
+}
+
+.page.--left {
+  border-right: 0;
+  box-shadow: inset -7px 0 30px -7px #00000066; /* rgba(0,0,0,0.4) */
+}
+
+.page.--right {
+  border-left: 0;
+  box-shadow: inset 7px 0 30px -7px #00000066; /* rgba(0,0,0,0.4) */
+}
+
+.page.hard {
+  background-color: #f0e5cc; /* hsl(35, 50%, 90%) */
+  border: solid 1px #9c8263; /* hsl(35, 20%, 50%) */
+}
+
+.page.page-cover-top {
+  box-shadow: inset 0px 0 30px 0px #240a0380, -2px 0 5px 2px #00000066;
+}
+
+.page.page-cover-bottom {
+  box-shadow: inset 0px 0 30px 0px #240a0380, 10px 0 8px 0px #00000066;
+}
