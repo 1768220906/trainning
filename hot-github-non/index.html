@@ -4,21 +4,160 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hot Github Non</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
+      integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <div id="root"></div>
   </body>
+
+  <!-- React / ReactDOM -->
   <script
-    src="https://unpkg.com/react@18/umd/react.development.js"
-    crossorigin
+    src="https://cdn.jsdelivr.net/npm/react@18.3.0/umd/react.development.js"
+    integrity="sha256-YGCi0siahOHX/Wdi87L6KJxDunX+Fx7SnUI5lprFxBY="
+    crossorigin="anonymous"
   ></script>
   <script
-    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    crossorigin
+    src="https://cdn.jsdelivr.net/npm/react-dom@18.3.0/umd/react-dom.development.js"
+    integrity="sha256-GfcKEHBZUuhqx1JMlm3JNiAT4WrlY5QUFWg40eC9mxg="
+    crossorigin="anonymous"
   ></script>
+  <!-- Axios -->
   <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin></script>
-  <!-- babel解析 -->
+
+  <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- 自定义代码 -->
   <script src="./dist/request.js"></script>
-  <script type="text/babel" src="./dist/app.js"></script>
+  <script src="./dist/service.js"></script>
+
+  <!-- React Router -->
+  <script type="text/babel">
+    const { createContext, useContext, useState, useEffect } = React;
+
+    const RouterContext = createContext({ location: "/" });
+
+    function HashRouter({ children }) {
+      const [location, setLocation] = useState(
+        window.location.hash.slice(1) || "/"
+      );
+
+      useEffect(() => {
+        const handleHashChange = () => {
+          setLocation(window.location.hash.slice(1) || "/");
+        };
+        window.addEventListener("hashchange", handleHashChange);
+        return () => window.removeEventListener("hashchange", handleHashChange);
+      }, []);
+
+      return (
+        <RouterContext.Provider value={{ location }}>
+          {children}
+        </RouterContext.Provider>
+      );
+    }
+
+    function NavigateTo({ to }) {
+      useEffect(() => {
+        window.location.hash = to;
+      }, [to]);
+
+      return null; // 不渲染任何 UI
+    }
+
+    // 自定义 hook
+    function useParams() {
+      const { location } = useContext(RouterContext);
+      const [params, setParams] = useState({});
+      useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const newParams = {};
+        for (const [key, value] of searchParams.entries()) {
+          newParams[key] = value;
+        }
+        setParams(newParams);
+      }, [location.search]);
+
+      return params;
+    }
+
+    function useNavigate() {
+      return (to) => {
+        window.location.hash = to;
+      };
+    }
+
+    function useRoutes(routes) {
+      const { location } = useContext(RouterContext);
+
+      for (const route of routes) {
+        if (route.path === location || route.path === "*") {
+          return route.element;
+        }
+      }
+      return null;
+    }
+
+    function Route({ path, element }) {
+      const { location } = useContext(RouterContext);
+      return location === path ? element : null;
+    }
+
+    function Link({ to, children }) {
+      return <a href={`#${to}`}>{children}</a>;
+    }
+  </script>
+
+  <script type="text/babel">
+    // 示例组件
+    function Home() {
+      return (
+          <div className="text-center text-6xl"> 🎉 Welcome to home page </div>
+      );
+    }
+
+    function About() {
+      return <div className="text-center text-6xl">📄 About Page</div>;
+    }
+
+    function NotFound() {
+      return <div>🚫 404 Not Found</div>;
+    }
+  </script>
+
+  <!-- 路由配置 -->
+  <script type="text/babel">
+    const routes = [
+      { path: "/", element: <NavigateTo to="/home" /> },
+      { path: "/home", element: <Home /> },
+      { path: "/about", element: <About /> },
+      { path: "*", element: <NotFound /> },
+    ];
+
+    function Outlet() {
+      return useRoutes(routes);
+    }
+  </script>
+
+  <!-- app.js -->
+  <script type="text/babel">
+    function App() {
+      return (
+        <HashRouter>
+          <Outlet />
+        </HashRouter>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
 </html>
