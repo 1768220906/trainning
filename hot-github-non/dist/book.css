@@ -1,6 +1,6 @@
 .flip-book {
-  box-shadow: 0 0 20px 0 #00000080; /* rgba(0,0,0,0.5) */
   display: none;
+  background: transparent;
 }
 
 .page {
@@ -13,11 +13,13 @@
 
 .page.--left {
   border-right: 0;
+  border-radius: 10px 0 0 10px;
   box-shadow: inset -7px 0 30px -7px #00000066; /* rgba(0,0,0,0.4) */
 }
 
 .page.--right {
   border-left: 0;
+    border-radius: 0 10px 10px 0;
   box-shadow: inset 7px 0 30px -7px #00000066; /* rgba(0,0,0,0.4) */
 }
 

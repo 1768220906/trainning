@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hot Github Non</title>
+    <link rel="stylesheet" href="/dist/index.css" />
     <link rel="stylesheet" href="/dist/book.css" />
     <link rel="stylesheet" href="/dist/page.css" />
     <!-- Tailwind CSS -->
@@ -173,7 +174,6 @@
 
       return (
         <div className="page-content">
-          <div className="project-opration">pre</div>
           <div className="project-list">
             {items.map((item) => (
               <HotProjectItem key={item.id} item={item} />
@@ -183,86 +183,106 @@
       );
     }
 
+    function BookCover(props) {
+      return (
+        <div className="cover-container">
+          <div className="cover-title">Github 热门项目汇总</div>
+          <div className="cover-logo">
+            <i className="fa fa-github"></i>
+          </div>
+          <div className="cover-query">
+            <div className="language query-item">
+              <div className="item-label">主要语言：</div>
+              <div className="item-value">Javascript</div>
+            </div>
+
+            <div className="stars query-item">
+              <div className="item-label">主要话题：</div>
+              <div className="item-value">前端</div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     function Content() {
-      const { useRef, useState } = React;
+      const { useRef, useState, useEffect } = React;
 
       const bookRef = useRef(null);
       const pageFlipRef = useRef(null);
 
       const [currentPage, setCurrentPage] = useState(1);
-      const [totalPage, setTotalPage] = useState(1);
-      const [listData, setListData] = useState([]);
+      const [pageMap, setPageMap] = useState({}); // { pageIndex: items[] }
 
       const setting = {
         width: 550,
         height: 733,
-        size: "stretch", // ✅ 自动响应单页或双页
+        size: "stretch", // 单页/双页自适应
         minWidth: 315,
         maxWidth: 1000,
         minHeight: 420,
         maxHeight: 1350,
         maxShadowOpacity: 0.5,
-        showCover: false, // 建议设置为 false，让第一页也可以成对显示
+        showCover: true,
         mobileScrollSupport: false,
       };
 
-      const initParams = {
-        q: "language:javascript",
-        page: 1,
-        per_page: 120,
-      };
-      const nextPage = () => {
-        pageFlipRef.current.flipNext();
-      };
-      const prevPage = () => {
-        pageFlipRef.current.flipPrev();
+      const getGithubData = async (page = 1) => {
+        const params = {
+          q: "language:javascript",
+          per_page: 12,
+          page: page,
+        };
+        const data = await getHotProjects(params);
+        return data.items.map((item, index) => ({
+          ...item,
+          order: (page - 1) * 12 + index + 1,
+        }));
       };
 
-      // 获取github 热门项目数据
-      const getGithubData = async () => {
-        const data = await getHotProjects(initParams);
-        const { items, total_count } = data;
-        const total = Math.ceil(total_count / 12);
-        const list = chunkArray(items);
-
-        setListData(list);
-        setTotalPage(total);
+      const loadPageData = async (page) => {
+        if (pageMap[page]) return; // 已有数据则跳过
+        const items = await getGithubData(page);
+        setPageMap((prev) => ({ ...prev, [page]: items }));
       };
 
       useEffect(() => {
-        getGithubData();
+        loadPageData(1); // 加载首页数据
       }, []);
 
       useEffect(() => {
-        if (!bookRef.current || !window.St || listData.length === 0) {
-          return;
-        }
+        if (!bookRef.current || !window.St || !pageMap[1]) return;
 
         pageFlipRef.current = new window.St.PageFlip(bookRef.current, setting);
-        const pages = document.querySelectorAll(".page");
-        pageFlipRef.current.loadFromHTML(pages);
-        // triggered by page turning
-        pageFlipRef.current.on("flip", (e) => {});
+        pageFlipRef.current.loadFromHTML(document.querySelectorAll(".page"));
 
-        // triggered when the state of the book changes
-        pageFlipRef.current.on("changeState", (e) => {});
-
-        // triggered when page orientation changes
-        pageFlipRef.current.on("changeOrientation", (e) => {});
-      }, [listData]);
+        // 翻页时懒加载新页数据
+        pageFlipRef.current.on("flip", async (e) => {
+          const pageIndex = e.data + 1;
+          setCurrentPage(pageIndex);
+          await loadPageData(pageIndex);
+        });
+      }, [pageMap]);
 
       return (
         <div className="book-container w-full sm:p-20 overflow-hidden">
-          <div className="flip-book" id="demoBookExample" ref={bookRef}>
-            {listData.map((items, index) => (
-              <div
-                className="page page-cover page-cover-top"
-                data-density="soft"
-                key={index}
-              >
+          <div className="flip-book" ref={bookRef}>
+            {/* 封面页 */}
+            <div className="page page-cover page-cover-top">
+              <BookCover />
+            </div>
+
+            {/* 已加载的数据页 */}
+            {Object.entries(pageMap).map(([pageIndex, items]) => (
+              <div className="page" key={pageIndex}>
                 <BookPages items={items} />
               </div>
             ))}
+
+            {/* 末尾页 */}
+            <div className="page page-cover page-cover-bottom">
+              <div className="thanks">感谢查看</div>
+            </div>
           </div>
         </div>
       );
@@ -270,7 +290,7 @@
 
     function Header() {
       return (
-        <div className="header-container">
+        <div className="header-bg">
           <div></div>
         </div>
       );
@@ -279,7 +299,7 @@
     // 首页
     function Home() {
       return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="home-container">
           <Header />
           <Content />
         </div>

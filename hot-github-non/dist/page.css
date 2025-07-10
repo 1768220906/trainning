@@ -6,8 +6,17 @@
   gap: 16px;
 }
 
-.project-search {
+.project-opration {
   flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.project-opration .btn-group{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .project-list {
