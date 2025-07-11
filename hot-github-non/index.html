@@ -185,7 +185,7 @@
       );
     }
 
-    function BookCover(props) {
+    function BookCover() {
       return (
         <div className="page page-cover page-cover-top">
           <div className="cover-container">
@@ -210,13 +210,11 @@
     }
 
     // 封底
-    function BookBottom(props) {
+    function BookBottom() {
       return (
         <div className="page page-cover page-cover-bottom">
           <div className="cover-container">
-            <div className="cover-title">
-              感谢浏览！
-            </div>
+            <div className="cover-title">感谢浏览！</div>
           </div>
         </div>
       );
@@ -229,10 +227,7 @@
       const bookRef = useRef(null);
       const pageFlipRef = useRef(null);
 
-      const [pages, setPages] = useState([
-        // 数组中每项是每一页的项目数组
-        // 例如： [ [item1, item2], [item3, item4], ... ]
-      ]);
+      const [pages, setPages] = useState(initPages);
 
       const setting = {
         width: 550,
@@ -251,25 +246,21 @@
         const res = await getHotProjects({ q: "language:javascript" });
         const { items, total_count } = res;
         const data = chunkArray(items, 12);
-        setPages(data);
+        console.log(data);
+
+        // setPages(data);
       };
 
       useEffect(() => {
         if (!bookRef.current || !St) {
         }
+        // getGithubData();
         const pf = new St.PageFlip(bookRef.current, setting);
         pageFlipRef.current = pf;
 
         loadPages(true);
         return () => pf.destroy();
       }, []);
-
-      useEffect(() => {
-        if (!pages.length) {
-          return;
-        }
-        loadPages();
-      }, [pages]);
 
       const loadPages = (isInit = false) => {
         const nodes = Array.from(hiddenRef.current.childNodes);
@@ -279,21 +270,26 @@
         if (isInit) {
           pf.loadFromHTML(nodes);
         } else {
-          pf.updateFromHtml(nodes);
+          // pf.updateFromHtml(nodes);
         }
       };
 
       return (
         <>
+          <div>
+            <button onClick={() => setPages((pre) => [...pre, ...mockAdd])}>
+              load
+            </button>
+          </div>
           <div className="book-container">
             <div ref={bookRef}></div>
           </div>
 
           {/* 隐藏的React渲染区 */}
-          <div ref={hiddenRef} style={{ display: "none" }}>
+          <div ref={hiddenRef}>
             <BookCover />
-            {pages.map((items, index) => (
-              <BookPage key={index} items={items} />
+            {pages.map((item) => (
+              <BookPage key={item.key} items={item.data} />
             ))}
             <BookBottom />
           </div>

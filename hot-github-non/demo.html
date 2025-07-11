@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>React 动态添加页面（安全方案）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/page-flip@2.0.3/dist/css/page-flip.min.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        background: #f0f0f0;
+        font-family: sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .page {
+        width: 300px;
+        height: 400px;
+        background: #fffbe7;
+        border: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+      }
+
+      #root {
+        width: 1200px;
+        height: 733px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        background: #0077ff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background: #005edb;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- React & Babel -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/react@18.3.0/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/react-dom@18.3.0/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+    <!-- PageFlip -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.3/dist/js/page-flip.browser.min.js"></script>
+
+    <script type="text/babel">
+      const { useEffect, useRef, useState } = React;
+
+      function Book() {
+        const bookRef = useRef(null);
+        const pageFlipRef = useRef(null);
+        const [pages, setPages] = useState([
+          "📘 封面 - 我的书",
+          "📖 第 1 页 - 欢迎",
+          "📄 第 2 页 - 继续阅读",
+        ]);
+
+        // 首次初始化
+        useEffect(() => {
+          const pf = new St.PageFlip(bookRef.current, {
+            width: 550,
+            height: 733,
+            size: "stretch",
+            minWidth: 315,
+            maxWidth: 1000,
+            minHeight: 420,
+            maxHeight: 1350,
+            showCover: true,
+            mobileScrollSupport: false,
+          });
+          pageFlipRef.current = pf;
+
+          loadPages(pages,true);
+          return () => pf.destroy();
+        }, []);
+
+        // 将文本内容构造成 DOM 元素数组并加载
+        const loadPages = (texts, init = false) => {
+          const nodes = texts.map((text) => {
+            const d = document.createElement("div");
+            d.className = "my-page page";
+            d.innerText = text;
+            return d;
+          });
+          console.log(nodes,'nodes');
+          
+          const pf = pageFlipRef.current;
+          // 初次或更新都用 loadFromHTML 或 updateFromHtml
+          if (init) {
+            pf.loadFromHTML(nodes);
+          } else {
+            pf.updateFromHtml(nodes); // :contentReference[oaicite:2]{index=2}
+          }
+        };
+
+        const handleAdd = () => {
+          const next = `🆕 新页 - 第 ${pages.length} 页`;
+          const all = [...pages, next];
+          setPages(all);
+          loadPages(all);
+        };
+
+        return (
+          <>
+            <div ref={bookRef}></div>
+            <button onClick={handleAdd}>➕ 添加页面</button>
+          </>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<Book />);
+    </script>
+  </body>
+</html>
