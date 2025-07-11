@@ -1,3 +1,8 @@
+.book-container{
+  width: 100%;
+  padding: 40px;
+}
+
 .flip-book {
   display: none;
   background: transparent;

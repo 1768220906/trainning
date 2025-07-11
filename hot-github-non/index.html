@@ -169,15 +169,17 @@
       );
     }
 
-    function BookPages(props) {
+    function BookPage(props) {
       const { items } = props;
 
       return (
-        <div className="page-content">
-          <div className="project-list">
-            {items.map((item) => (
-              <HotProjectItem key={item.id} item={item} />
-            ))}
+        <div className="page">
+          <div className="page-content">
+            <div className="project-list">
+              {items.map((item) => (
+                <HotProjectItem key={item.id} item={item} />
+              ))}
+            </div>
           </div>
         </div>
       );
@@ -185,20 +187,35 @@
 
     function BookCover(props) {
       return (
-        <div className="cover-container">
-          <div className="cover-title">Github 热门项目汇总</div>
-          <div className="cover-logo">
-            <i className="fa fa-github"></i>
-          </div>
-          <div className="cover-query">
-            <div className="language query-item">
-              <div className="item-label">主要语言：</div>
-              <div className="item-value">Javascript</div>
+        <div className="page page-cover page-cover-top">
+          <div className="cover-container">
+            <div className="cover-title">Github 热门项目汇总</div>
+            <div className="cover-logo">
+              <i className="fa fa-github"></i>
             </div>
+            <div className="cover-query">
+              <div className="language query-item">
+                <div className="item-label">主要语言：</div>
+                <div className="item-value">Javascript</div>
+              </div>
 
-            <div className="stars query-item">
-              <div className="item-label">主要话题：</div>
-              <div className="item-value">前端</div>
+              <div className="stars query-item">
+                <div className="item-label">主要话题：</div>
+                <div className="item-value">前端</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // 封底
+    function BookBottom(props) {
+      return (
+        <div className="page page-cover page-cover-bottom">
+          <div className="cover-container">
+            <div className="cover-title">
+              感谢浏览！
             </div>
           </div>
         </div>
@@ -206,87 +223,81 @@
     }
 
     function Content() {
-      const { useRef, useState } = React;
+      const { useRef, useState, useEffect } = React;
 
+      const hiddenRef = useRef(null);
       const bookRef = useRef(null);
       const pageFlipRef = useRef(null);
 
-      const [currentPage, setCurrentPage] = useState(1);
-      const [totalPage, setTotalPage] = useState(1);
-      const [listData, setListData] = useState([]);
+      const [pages, setPages] = useState([
+        // 数组中每项是每一页的项目数组
+        // 例如： [ [item1, item2], [item3, item4], ... ]
+      ]);
 
       const setting = {
         width: 550,
         height: 733,
-        size: "stretch", // ✅ 自动响应单页或双页
+        size: "stretch",
         minWidth: 315,
         maxWidth: 1000,
         minHeight: 420,
         maxHeight: 1350,
         maxShadowOpacity: 0.5,
-        showCover: true, // 建议设置为 false，让第一页也可以成对显示
+        showCover: true,
         mobileScrollSupport: false,
       };
 
-      const initParams = {
-        q: "language:javascript",
-        page: 1,
-        per_page: 24,
-      };
-      const nextPage = () => {
-        pageFlipRef.current.flipNext();
-      };
-      const prevPage = () => {
-        pageFlipRef.current.flipPrev();
-      };
-
-      // 获取github 热门项目数据
       const getGithubData = async () => {
-        const data = await getHotProjects(initParams);
-        const { items, total_count } = data;
-        const total = Math.ceil(total_count / 12);
-        const list = chunkArray(items);
-
-        setListData(list);
-        setTotalPage(total);
+        const res = await getHotProjects({ q: "language:javascript" });
+        const { items, total_count } = res;
+        const data = chunkArray(items, 12);
+        setPages(data);
       };
 
       useEffect(() => {
-        getGithubData();
+        if (!bookRef.current || !St) {
+        }
+        const pf = new St.PageFlip(bookRef.current, setting);
+        pageFlipRef.current = pf;
+
+        loadPages(true);
+        return () => pf.destroy();
       }, []);
 
       useEffect(() => {
-        if (!bookRef.current || !window.St || listData.length === 0) {
+        if (!pages.length) {
           return;
         }
+        loadPages();
+      }, [pages]);
 
-        pageFlipRef.current = new window.St.PageFlip(bookRef.current, setting);
-        const pages = document.querySelectorAll(".page");
-        pageFlipRef.current.loadFromHTML(pages);
-        // triggered by page turning
-        pageFlipRef.current.on("flip", (e) => {});
+      const loadPages = (isInit = false) => {
+        const nodes = Array.from(hiddenRef.current.childNodes);
 
-        // triggered when the state of the book changes
-        pageFlipRef.current.on("changeState", (e) => {});
+        const pf = pageFlipRef.current;
 
-        // triggered when page orientation changes
-        pageFlipRef.current.on("changeOrientation", (e) => {});
-      }, [listData]);
+        if (isInit) {
+          pf.loadFromHTML(nodes);
+        } else {
+          pf.updateFromHtml(nodes);
+        }
+      };
 
       return (
-        <div className="book-container w-full sm:p-20 overflow-hidden">
-          <div className="flip-book" ref={bookRef}>
-            <div className="page page-cover page-cover-top">
-              <BookCover />
-            </div>
-            {listData.length > 0 && ( listData.map((items, index) => (
-              <div className="page page-cover page-cover-top" key={index}>
-                <BookPages items={items} />
-              </div>
-            )))}
-            <div className="page page-cover page-cover-bottom">感谢查看</div>
+        <>
+          <div className="book-container">
+            <div ref={bookRef}></div>
           </div>
-        </div>
+
+          {/* 隐藏的React渲染区 */}
+          <div ref={hiddenRef} style={{ display: "none" }}>
+            <BookCover />
+            {pages.map((items, index) => (
+              <BookPage key={index} items={items} />
+            ))}
+            <BookBottom />
+          </div>
+        </>
       );
     }
 
