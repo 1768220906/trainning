@@ -23,7 +23,13 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     const { data, status } = response;
+    
     // ✅ 统一处理响应数据
+
+    if (status !== 200) {
+      alert(`请求错误：${status}错误:${data.message}`);
+    }
+
     return data;
   },
   (error) => {

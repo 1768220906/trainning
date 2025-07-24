@@ -41,7 +41,6 @@
   <!-- Axios -->
   <script src="https://unpkg.com/axios/dist/axios.min.js" crossorigin></script>
   <!-- StPageFlip -->
-  <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
 
   <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -220,78 +219,110 @@
       );
     }
 
+    const defaultQuery = {
+      q: "language:javascript",
+      per_page: 24,
+      page: 1,
+    };
+
     function Content() {
       const { useRef, useState, useEffect } = React;
-
-      const hiddenRef = useRef(null);
       const bookRef = useRef(null);
-      const pageFlipRef = useRef(null);
+      const totalRef = useRef(2);
 
-      const [pages, setPages] = useState(initPages);
+      const [currentPage, setCurrentPage] = React.useState(1);
+      const [pages, setPages] = useState([]);
 
-      const setting = {
-        width: 550,
-        height: 733,
-        size: "stretch",
-        minWidth: 315,
-        maxWidth: 1000,
-        minHeight: 420,
-        maxHeight: 1350,
-        maxShadowOpacity: 0.5,
-        showCover: true,
-        mobileScrollSupport: false,
+      const nextPage = async () => {
+        setCurrentPage((p) => Math.min(p + 2, totalRef.current));
+
+        if (Math.min(currentPage + 2, totalRef.current) === totalRef.current) {
+          setCurrentPage((p) => Math.min(p + 2, totalRef.current));
+          return;
+        }
+
+        const changeQuerys = {
+          page: (currentPage + 1) / 2 + 1,
+        };
+
+        const res = await getGithubData(changeQuerys);
+
+        if (res.data && res.data.length > 0) {
+          setPages((p) => [...p, ...res.data]);
+          return;
+        }
       };
 
-      const getGithubData = async () => {
-        const res = await getHotProjects({ q: "language:javascript" });
-        const { items, total_count } = res;
-        const data = chunkArray(items, 12);
-        console.log(data);
+      const prevPage = () => {
+        if (currentPage === totalRef.current && totalRef.current % 2 === 0) {
+          setCurrentPage((p) => p - 1);
+          return;
+        }
+        setCurrentPage((p) => Math.max(p - 2, 1));
+      };
 
-        // setPages(data);
+      const getGithubData = async (changeQuery = {}) => {
+        const query = {
+          ...defaultQuery,
+          ...changeQuery,
+        };
+        const res = await getHotProjects(query);
+        const { items, total_count } = res;
+        const data = chunkArray(items, 12, query.page);
+        return { data, total_count };
+      };
+
+      const init = async () => {
+        const { data, total_count } = await getGithubData();
+        setPages(data);
+        totalRef.current = Math.ceil(total_count / 12 + 2);
       };
 
       useEffect(() => {
-        if (!bookRef.current || !St) {
-        }
-        // getGithubData();
-        const pf = new St.PageFlip(bookRef.current, setting);
-        pageFlipRef.current = pf;
-
-        loadPages(true);
-        return () => pf.destroy();
+        init();
       }, []);
-
-      const loadPages = (isInit = false) => {
-        const nodes = Array.from(hiddenRef.current.childNodes);
-
-        const pf = pageFlipRef.current;
-
-        if (isInit) {
-          pf.loadFromHTML(nodes);
-        } else {
-          // pf.updateFromHtml(nodes);
-        }
-      };
 
       return (
         <>
           <div>
-            <button onClick={() => setPages((pre) => [...pre, ...mockAdd])}>
-              load
-            </button>
-          </div>
-          <div className="book-container">
-            <div ref={bookRef}></div>
+            <button onClick={prevPage}>&larr; 上一页 &nbsp;&nbsp;&nbsp;</button>
+            <button onClick={nextPage}>下一页 &rarr;</button>
           </div>
 
-          {/* 隐藏的React渲染区 */}
-          <div ref={hiddenRef}>
-            <BookCover />
-            {pages.map((item) => (
-              <BookPage key={item.key} items={item.data} />
+          {/* book渲染区 */}
+          <div className="book-container" ref={bookRef}>
+            <div
+              key={"cover"}
+              className={`page-container ${currentPage > 1 ? "left" : "right"}`}
+              style={{ zIndex: currentPage > 1 ? 0 : pages.length + 1 }}
+            >
+              <BookCover />
+            </div>
+            {pages.map((item, index) => (
+              <div
+                key={item.key}
+                className={`page-container ${
+                  currentPage > index + 2 ? "left" : "right"
+                }`}
+                style={{
+                  zIndex:
+                    currentPage > index + 2 ? index + 1 : pages.length - index,
+                }}
+              >
+                <BookPage items={item.data} />
+              </div>
             ))}
-            <BookBottom />
+            <div
+              key={"bottom"}
+              className={`page-container ${
+                currentPage === totalRef.current ? "left" : "right"
+              }`}
+              style={{
+                zIndex: currentPage === totalRef.current ? pages.length + 1 : 0,
+              }}
+            >
+              <BookBottom />
+            </div>
           </div>
         </>
       );

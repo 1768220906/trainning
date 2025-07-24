@@ -6,19 +6,6 @@
   gap: 16px;
 }
 
-.project-opration {
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-
-.project-opration .btn-group{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .project-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(192px, 1fr));
