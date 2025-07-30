@@ -1,11 +1,22 @@
 
 import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
 import productsRouter from './routes/products';
 import cartRouter from './routes/cart';
 
-const app = express();
-const port = 3000;
+// Load environment variables
+dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` });
 
+const app = express();
+const port = 8080;
+
+// CORS configuration
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.static('public'));
 
