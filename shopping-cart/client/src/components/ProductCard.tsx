@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import type { Product } from '@/utils/mockData';
 import { useCartStore } from '@/store/cart';
 import { formatPrice } from '@/utils/price';
+import type { Product } from '@/store/products';
 
 interface Props {
   product: Product;

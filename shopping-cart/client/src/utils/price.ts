@@ -1,7 +1,7 @@
 
 import dayjs from 'dayjs';
 
-export const formatPrice = (price: number) => {
+export const formatPrice = (price: number) => {  
   return price.toFixed(2);
 };
 

@@ -1,17 +1,30 @@
-import React from 'react';
+
+import React, { useEffect } from 'react';
 import { useCartStore } from '@/store/cart';
 import { formatPrice } from '@/utils/price';
 import { Link } from 'react-router-dom';
 
 const CartPage: React.FC = () => {
-  const { cart, removeFromCart, updateQuantity, totalPrice } = useCartStore();
+  const { cart, removeFromCart, updateQuantity, totalPrice, fetchCart, loading, error, clearCart } = useCartStore();
+
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
 
   const handleCheckout = () => {
     if (window.confirm('Are you sure you want to proceed to checkout?')) {
       alert('Thank you for your purchase!');
-      // Here you would typically redirect to a checkout page or clear the cart
+      clearCart();
     }
   };
+
+  if (loading) {
+    return <div className="text-center py-20">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-20 text-red-500">{error}</div>;
+  }
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -49,12 +62,12 @@ const CartPage: React.FC = () => {
                     min="1"
                     value={item.quantity}
                     onChange={(e) =>
-                      updateQuantity(item.id, parseInt(e.target.value))
+                      updateQuantity(item.id, parseInt(e.target.value), item.selectedSize)
                     }
                     className="border border-gray-300 rounded-md p-2 w-20 text-center focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all duration-300"
                   />
                   <button
-                    onClick={() => removeFromCart(item.id)}
+                    onClick={() => removeFromCart(item.id, item.selectedSize)}
                     className="text-gray-400 hover:text-brand transition-colors duration-300"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useEffect } from 'react';
 import { useProductStore } from '@/store/products';
 import ProductCard from '@/components/ProductCard';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
 
 const HomePage: React.FC = () => {
-  const { filteredProducts, filterBySize, sortByPrice } = useProductStore();
-  const [loading, setLoading] = useState(true);
+  const { filteredProducts, filterBySize, sortByPrice, fetchProducts, loading, error, currentPage, pageSize } = useProductStore();
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-  }, []);
+    fetchProducts({ page: currentPage, pageSize, sort: 'asc' });
+  }, [fetchProducts, currentPage, pageSize]);
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
@@ -45,6 +43,8 @@ const HomePage: React.FC = () => {
       </div>
       {loading ? (
         <LoadingSkeleton />
+      ) : error ? (
+        <div className="text-red-500 text-center">{error}</div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (

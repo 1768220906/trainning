@@ -1,7 +1,8 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { type Product } from '../utils/mockData';
+import apiClient from '../api';
+import type { Product } from './products';
 
 export interface CartItem extends Product {
   quantity: number;
@@ -10,9 +11,13 @@ export interface CartItem extends Product {
 
 type State = {
   cart: CartItem[];
-  addToCart: (product: Product, size: string) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  loading: boolean;
+  error: string | null;
+  fetchCart: () => Promise<void>;
+  addToCart: (product: Product, size: string) => Promise<void>;
+  removeFromCart: (productId: number, selectedSize: string) => Promise<void>;
+  updateQuantity: (productId: number, quantity: number, selectedSize: string) => Promise<void>;
+  clearCart: () => Promise<void>;
   totalPrice: () => number;
 };
 
@@ -20,39 +25,63 @@ export const useCartStore = create<State>()(
   persist(
     (set, get) => ({
       cart: [],
-      addToCart: (product, size) =>
-        set((state) => {
-          const existingProduct = state.cart.find(
-            (item) => item.id === product.id && item.selectedSize === size
-          );
-          if (existingProduct) {
-            return {
-              cart: state.cart.map((item) =>
-                item.id === product.id && item.selectedSize === size
-                  ? { ...item, quantity: item.quantity + 1 }
-                  : item
-              ),
-            };
-          }
-          return {
-            cart: [...state.cart, { ...product, quantity: 1, selectedSize: size }],
-          };
-        }),
-      removeFromCart: (productId) =>
-        set((state) => ({
-          cart: state.cart.filter((item) => item.id !== productId),
-        })),
-      updateQuantity: (productId, quantity) =>
-        set((state) => ({
-          cart: state.cart.map((item) =>
-            item.id === productId ? { ...item, quantity } : item
-          ),
-        })),
+      loading: false,
+      error: null,
+      fetchCart: async () => {
+        set({ loading: true, error: null });
+        try {
+          const response = await apiClient.get('/cart');
+          set({ cart: response.data, loading: false });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+          set({ error: 'Failed to fetch cart', loading: false });
+        }
+      },
+      addToCart: async (product, size) => {
+        try {
+          await apiClient.post('/cart/add', { productId: product.id, selectedSize: size });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+          set({ error: 'Failed to add to cart' });
+        }
+      },
+      removeFromCart: async (productId, selectedSize) => {
+        try {
+          await apiClient.post('/cart/delete', { productId, selectedSize });
+          set((state) => ({ cart: state.cart.filter((item) => item.id !== productId) }));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+          set({ error: 'Failed to remove from cart' });
+        }
+      },
+      updateQuantity: async (productId, quantity, selectedSize) => {
+        try {
+          await apiClient.post('/cart/modify', { productId, quantity, selectedSize });
+          set((state) => ({
+            cart: state.cart.map((item) =>
+              item.id === productId ? { ...item, quantity } : item
+            ),
+          }));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+          set({ error: 'Failed to update quantity' });
+        }
+      },
       totalPrice: () =>
         get().cart.reduce((total, item) => total + item.price * item.quantity, 0),
+      clearCart: async () => {
+        set({ loading: true, error: null });
+        try {
+          await apiClient.post('/cart/clear');
+          set({ cart: [], loading: false });
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+          set({ error: 'Failed to clear cart', loading: false });
+        }
+      },
     }),
     {
-      name: 'cart-storage', 
+      name: 'cart-storage',
     }
   )
 );
