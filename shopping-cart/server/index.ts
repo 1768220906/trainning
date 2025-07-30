@@ -9,11 +9,12 @@ import cartRouter from './routes/cart';
 dotenv.config({ path: `.env.${process.env.NODE_ENV || 'development'}` });
 
 const app = express();
-const port = 8080;
+const origin = process.env.CORS_ORIGIN;
+const port = process.env.EXPOSE_PORT || 8080;
 
 // CORS configuration
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN,
+  origin: origin,
 };
 
 app.use(cors(corsOptions));

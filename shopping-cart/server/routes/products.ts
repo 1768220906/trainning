@@ -22,6 +22,14 @@ router.get('/products', (req: Request, res: Response) => {
 
     let products: Product[] = JSON.parse(data);
 
+    const imageBaseUrl = process.env.IMAGE_BASE_URL || '';
+
+    // Add full image URL
+    products = products.map(product => ({
+      ...product,
+      image: `${imageBaseUrl}${product.image}`,
+    }));
+
     // Size filtering
     const size = req.query.size as string;
     if (size) {
