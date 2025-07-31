@@ -30,7 +30,7 @@ export const useCartStore = create<State>()(
       fetchCart: async () => {
         set({ loading: true, error: null });
         try {
-          const response = await apiClient.get('/api/cart');
+          const response = await apiClient.get('api/cart');
           set({ cart: response.data, loading: false });
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
@@ -39,7 +39,7 @@ export const useCartStore = create<State>()(
       },
       addToCart: async (product, size) => {
         try {
-          await apiClient.post('/api/cart/add', { productId: product.id, selectedSize: size });
+          await apiClient.post('api/cart/add', { productId: product.id, selectedSize: size });
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
           set({ error: 'Failed to add to cart' });
@@ -47,7 +47,7 @@ export const useCartStore = create<State>()(
       },
       removeFromCart: async (productId, selectedSize) => {
         try {
-          await apiClient.post('/api/cart/delete', { productId, selectedSize });
+          await apiClient.post('api/cart/delete', { productId, selectedSize });
           set((state) => ({ cart: state.cart.filter((item) => item.id !== productId) }));
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
@@ -56,7 +56,7 @@ export const useCartStore = create<State>()(
       },
       updateQuantity: async (productId, quantity, selectedSize) => {
         try {
-          await apiClient.post('/api/cart/modify', { productId, quantity, selectedSize });
+          await apiClient.post('api/cart/modify', { productId, quantity, selectedSize });
           set((state) => ({
             cart: state.cart.map((item) =>
               item.id === productId ? { ...item, quantity } : item
@@ -72,7 +72,7 @@ export const useCartStore = create<State>()(
       clearCart: async () => {
         set({ loading: true, error: null });
         try {
-          await apiClient.post('/api/cart/clear');
+          await apiClient.post('api/cart/clear');
           set({ cart: [], loading: false });
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {

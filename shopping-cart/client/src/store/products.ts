@@ -39,7 +39,7 @@ export const useProductStore = create<State>((set, get) => ({
     set({ loading: true, error: null });
     const { page, pageSize, size, sort } = { ...get(), ...options };
     try {
-      const response = await apiClient.get('/api/products', {
+      const response = await apiClient.get('api/products', {
         params: {
           page,
           pageSize,
