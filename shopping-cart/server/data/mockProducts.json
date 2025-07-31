@@ -15,9 +15,5 @@
   { "id": 13, "name": "Bomber Jacket", "price": 109.99, "image": "/images/bomber-jacket.jpg", "sizes": ["M", "L", "XL"] },
   { "id": 14, "name": "Running Shoes", "price": 99.99, "image": "/images/running-shoes.jpg", "sizes": ["L", "XL"] },
   { "id": 15, "name": "Cap", "price": 24.99, "image": "/images/cap.jpg", "sizes": ["S", "M"] },
-  { "id": 16, "name": "Scarf", "price": 34.99, "image": "/images/scarf.jpg", "sizes": ["M", "L"] },
-  { "id": 17, "name": "V-Neck Sweater", "price": 64.99, "image": "/images/sweater.jpg", "sizes": ["S", "M", "L"] },
-  { "id": 18, "name": "Cargo Pants", "price": 74.99, "image": "/images/cargo-pants.jpg", "sizes": ["L", "XL"] },
-  { "id": 19, "name": "Flip Flops", "price": 14.99, "image": "/images/flip-flops.jpg", "sizes": ["S", "M"] },
-  { "id": 20, "name": "Denim Jacket", "price": 94.99, "image": "/images/denim-jacket.jpg", "sizes": ["M", "L", "XL"] }
+  { "id": 16, "name": "Scarf", "price": 34.99, "image": "/images/scarf.jpg", "sizes": ["M", "L"] }
 ]
