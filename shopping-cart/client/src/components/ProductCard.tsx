@@ -7,7 +7,7 @@ interface Props {
   product: Product;
 }
 
-const ProductCard: React.FC<Props> = ({ product }) => {
+const ProductCard: React.FC<Props> = React.memo(({ product }) => {
   const [selectedSize, setSelectedSize] = useState<string>('');
   const addToCart = useCartStore((state) => state.addToCart);
 
@@ -20,7 +20,7 @@ const ProductCard: React.FC<Props> = ({ product }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-card hover:shadow-card-hover transition-shadow duration-300 group">
+    <div className="bg-white rounded-lg overflow-hidden shadow-card hover:-translate-y-1 transition-transform duration-300 group">
       <div className="bg-black bg-opacity-20 group-hover:bg-opacity-0 transition-all duration-300">
         <img
           src={product.image}
@@ -55,6 +55,6 @@ const ProductCard: React.FC<Props> = ({ product }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProductCard;
