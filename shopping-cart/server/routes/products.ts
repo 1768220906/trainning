@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 const router = Router();
-const productsPath = path.join(__dirname, '../data/mockProducts.json');
+const productsPath = path.join(process.cwd(), "data/mockProducts.json");
 
 interface Product {
   id: number;
