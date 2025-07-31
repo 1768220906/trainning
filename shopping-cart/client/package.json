@@ -7,7 +7,7 @@
     "dev": "vite --port 3000 --open",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview --port 3000 --open"
+    "preview": "vite preview --port 3005 --open"
   },
   "dependencies": {
     "axios": "^1.11.0",
