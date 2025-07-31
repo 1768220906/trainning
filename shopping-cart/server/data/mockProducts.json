@@ -10,10 +10,12 @@
   { "id": 8, "name": "Leather Belt", "price": 39.99, "image": "/images/belt.jpg", "sizes": ["M", "L"] },
   { "id": 9, "name": "Sunglasses", "price": 49.99, "image": "/images/sunglasses.jpg", "sizes": ["S", "XL"] },
   { "id": 10, "name": "Watch", "price": 199.99, "image": "/images/watch.jpg", "sizes": ["L"] },
-  { "id": 11, "name": "Polo Shirt", "price": 44.99, "image": "/images/polo-shirt.jpg", "sizes": ["S", "M", "L", "XL"] },
-  { "id": 12, "name": "Chino Shorts", "price": 54.99, "image": "/images/chino-shorts.jpg", "sizes": ["S", "M"] },
-  { "id": 13, "name": "Bomber Jacket", "price": 109.99, "image": "/images/bomber-jacket.jpg", "sizes": ["M", "L", "XL"] },
-  { "id": 14, "name": "Running Shoes", "price": 99.99, "image": "/images/running-shoes.jpg", "sizes": ["L", "XL"] },
+  { "id": 11, "name": "Polo Shirt", "price": 44.99, "image": "/images/t-shirt.jpg", "sizes": ["S", "M", "L", "XL"] },
+  { "id": 12, "name": "Chino Shorts", "price": 54.99, "image": "/images/shorts.jpg", "sizes": ["S", "M"] },
+  { "id": 13, "name": "Bomber Jacket", "price": 109.99, "image": "/images/jacket.jpg", "sizes": ["M", "L", "XL"] },
+  { "id": 14, "name": "Running Shoes", "price": 99.99, "image": "/images/sneakers.jpg", "sizes": ["L", "XL"] },
   { "id": 15, "name": "Cap", "price": 24.99, "image": "/images/cap.jpg", "sizes": ["S", "M"] },
-  { "id": 16, "name": "Scarf", "price": 34.99, "image": "/images/scarf.jpg", "sizes": ["M", "L"] }
+  { "id": 16, "name": "Scarf", "price": 34.99, "image": "/images/scarf.jpg", "sizes": ["M", "L"] },
+  { "id": 17, "name": "Gloves", "price": 25.99, "image": "/images/gloves.jpg", "sizes": ["S", "M", "L"] },
+  { "id": 18, "name": "Socks", "price": 9.99, "image": "/images/socks.jpg", "sizes": ["S", "M", "L", "XL"] }
 ]
