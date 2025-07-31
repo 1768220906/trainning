@@ -25,6 +25,7 @@ const ProductCard: React.FC<Props> = React.memo(({ product }) => {
         <img
           src={product.image}
           alt={product.name}
+          loading="lazy"
           className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
         />
       </div>
