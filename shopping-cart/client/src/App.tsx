@@ -1,14 +1,13 @@
-
 import React from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { HashRouter, Link } from "react-router-dom";
 import { useCartStore } from "@/store/cart";
-import AppRoutes from '@/components/AppRoutes';
+import AppRoutes from "@/components/AppRoutes";
 
 const App: React.FC = () => {
   const { cart } = useCartStore();
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <header className="bg-white text-secondary sticky top-0 z-10 shadow-md">
         <nav className="container mx-auto flex justify-between items-center p-4">
           <Link
@@ -42,7 +41,7 @@ const App: React.FC = () => {
       <main className="bg-secondary">
         <AppRoutes />
       </main>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
