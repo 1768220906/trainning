@@ -21,12 +21,12 @@ const ProductCard: React.FC<Props> = React.memo(({ product }) => {
 
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-card hover:-translate-y-1 transition-transform duration-300 group">
-      <div className="bg-black bg-opacity-20 group-hover:bg-opacity-0 transition-all duration-300">
+      <div className="bg-black bg-opacity-20 group-hover:bg-opacity-0 transition-all duration-300 h-64 overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full transform group-hover:scale-105 transition-transform duration-300"
         />
       </div>
       <div className="p-4 flex flex-col items-start">
