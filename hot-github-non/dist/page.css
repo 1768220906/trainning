@@ -8,8 +8,23 @@
 
 .project-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(192px, 1fr));
-  gap: 16px 8px;
+  gap: 16px;
+  /* sm: 1列 */
+  grid-template-columns: 1fr;
+}
+
+/* md: 3列 */
+@media (min-width: 768px) {
+  .project-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* lg: 4列 */
+@media (min-width: 1024px) {
+  .project-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .project-item {
@@ -20,6 +35,8 @@
   background-color: #d1c7b7;
   padding: 12px;
   border-radius: 4px;
+  overflow: hidden; /* 隐藏内部溢出的内容 */
+  min-width: 0; /* 修复grid布局下的溢出问题 */
 }
 
 .project-item .order {
@@ -30,6 +47,7 @@
 .project-item .cover {
   width: 120px;
   height: 120px;
+  background-color: #ccc;
 }
 
 .project-item .cover img {

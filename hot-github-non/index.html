@@ -54,6 +54,62 @@
   <script type="text/babel">
     const { createContext, useContext, useState, useEffect } = React;
 
+    const LanguageContext = createContext();
+
+    const translations = {
+      en: {
+        hotGithubProjects: "Hot Github Projects",
+        mainLanguage: "Language:",
+        mainTopic: "MainTopic:",
+        javascript: "Javascript",
+        frontend: "Frontend",
+        thanksForBrowsing: "Thanks for browsing!",
+        about: "About",
+        notFound: "404 Not Found",
+        loading: "Loading...",
+        prevPage: "Prev Page",
+        nextPage: "Next Page",
+      },
+      zh: {
+        hotGithubProjects: "Github 热门项目汇总",
+        mainLanguage: "主要语言：",
+        mainTopic: "主要话题：",
+        javascript: "Javascript",
+        frontend: "前端",
+        thanksForBrowsing: "感谢浏览！",
+        about: "关于",
+        notFound: "404 未找到",
+        loading: "加载中...",
+        prevPage: "上一页",
+        nextPage: "下一页",
+      },
+    };
+
+    function LanguageProvider({ children }) {
+      const [language, setLanguage] = useState(() => {
+        const lang = new URLSearchParams(
+          window.location.hash.split("?")[1]
+        ).get("lang");
+        return lang || localStorage.getItem("language") || "en";
+      });
+
+      useEffect(() => {
+        localStorage.setItem("language", language);
+        const [hash, query] = window.location.hash.slice(1).split("?");
+        const params = new URLSearchParams(query);
+        params.set("lang", language);
+        window.location.hash = `${hash}?${params.toString()}`;
+      }, [language]);
+
+      const t = (key) => translations[language][key] || key;
+
+      return (
+        <LanguageContext.Provider value={{ language, setLanguage, t }}>
+          {children}
+        </LanguageContext.Provider>
+      );
+    }
+
     const RouterContext = createContext({ location: "/" });
 
     function HashRouter({ children }) {
@@ -108,9 +164,16 @@
 
     function useRoutes(routes) {
       const { location } = useContext(RouterContext);
+      const path = location.split("?")[0];
 
       for (const route of routes) {
-        if (route.path === location || route.path === "*") {
+        if (route.path === path) {
+          return route.element;
+        }
+      }
+      // Return the wildcard route if no other route matches
+      for (const route of routes) {
+        if (route.path === "*") {
           return route.element;
         }
       }
@@ -135,7 +198,7 @@
         <div className="project-item">
           <div className="order">#{item.order}</div>
           <div className="cover">
-            <img src={item.owner.avatar_url} alt={item.name} />
+            <img src={item.owner.avatar_url} alt={item.name} loading="lazy" />
           </div>
           <div className="title">{item.name}</div>
           <div className="description">
@@ -185,22 +248,23 @@
     }
 
     function BookCover() {
+      const { language, t } = useContext(LanguageContext);
       return (
         <div className="page page-cover page-cover-top">
           <div className="cover-container">
-            <div className="cover-title">Github 热门项目汇总</div>
+            <div className="cover-title">{t("hotGithubProjects")}</div>
             <div className="cover-logo">
               <i className="fa fa-github"></i>
             </div>
             <div className="cover-query">
               <div className="language query-item">
-                <div className="item-label">主要语言：</div>
-                <div className="item-value">Javascript</div>
+                <div className={"item-label"}>{t("mainLanguage")}</div>
+                <div className="item-value">{t("javascript")}</div>
               </div>
 
               <div className="stars query-item">
-                <div className="item-label">主要话题：</div>
-                <div className="item-value">前端</div>
+                <div className={"item-label"}>{t("mainTopic")}</div>
+                <div className="item-value">{t("frontend")}</div>
               </div>
             </div>
           </div>
@@ -210,10 +274,11 @@
 
     // 封底
     function BookBottom() {
+      const { t } = useContext(LanguageContext);
       return (
         <div className="page page-cover page-cover-bottom">
           <div className="cover-container">
-            <div className="cover-title">感谢浏览！</div>
+            <div className="cover-title">{t("thanksForBrowsing")}</div>
           </div>
         </div>
       );
@@ -221,118 +286,260 @@
 
     const defaultQuery = {
       q: "language:javascript",
-      per_page: 24,
+      per_page: 20,
       page: 1,
     };
 
     function Content() {
-      const { useRef, useState, useEffect } = React;
+      const { useRef, useState, useEffect, useContext } = React;
+      const { t } = useContext(LanguageContext);
       const bookRef = useRef(null);
-      const totalRef = useRef(2);
 
-      const [currentPage, setCurrentPage] = React.useState(1);
       const [pages, setPages] = useState([]);
+      const [loading, setLoading] = useState(false);
+      const [dataPage, setDataPage] = useState(1);
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+      const [currentPage, setCurrentPage] = React.useState(1);
+      const totalPageRef = useRef(2);
+      const prevCurrentPageRef = useRef(1);
+      const touchStartX = useRef(0);
 
-      const nextPage = async () => {
-        setCurrentPage((p) => Math.min(p + 2, totalRef.current));
-
-        if (Math.min(currentPage + 2, totalRef.current) === totalRef.current) {
-          setCurrentPage((p) => Math.min(p + 2, totalRef.current));
-          return;
-        }
-
-        const changeQuerys = {
-          page: (currentPage + 1) / 2 + 1,
+      useEffect(() => {
+        const handleResize = () => {
+          setIsMobile(window.innerWidth < 768);
         };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
 
-        const res = await getGithubData(changeQuerys);
-
-        if (res.data && res.data.length > 0) {
-          setPages((p) => [...p, ...res.data]);
-          return;
-        }
+      const nextPage = () => {
+        const increment = isMobile ? 1 : 2;
+        setCurrentPage((p) => Math.min(p + increment, totalPageRef.current));
       };
 
       const prevPage = () => {
-        if (currentPage === totalRef.current && totalRef.current % 2 === 0) {
-          setCurrentPage((p) => p - 1);
-          return;
-        }
-        setCurrentPage((p) => Math.max(p - 2, 1));
+        const increment = isMobile ? 1 : 2;
+        setCurrentPage((p) => Math.max(p - increment, 1));
       };
 
-      const getGithubData = async (changeQuery = {}) => {
-        const query = {
-          ...defaultQuery,
-          ...changeQuery,
+      const handleTouchStart = (e) => {
+        touchStartX.current = e.touches[0].clientX;
+      };
+
+      const handleTouchEnd = (e) => {
+        const touchEndX = e.changedTouches[0].clientX;
+        if (touchStartX.current - touchEndX > 50) {
+          nextPage();
+        }
+        if (touchStartX.current - touchEndX < -50) {
+          prevPage();
+        }
+      };
+
+      useEffect(() => {
+        if (isMobile && bookRef.current) {
+          bookRef.current.addEventListener("touchstart", handleTouchStart);
+          bookRef.current.addEventListener("touchend", handleTouchEnd);
+        }
+        return () => {
+          if (isMobile && bookRef.current) {
+            bookRef.current.removeEventListener("touchstart", handleTouchStart);
+            bookRef.current.removeEventListener("touchend", handleTouchEnd);
+          }
         };
-        const res = await getHotProjects(query);
-        const { items, total_count } = res;
-        const data = chunkArray(items, 12, query.page);
-        return { data, total_count };
+      }, [isMobile, bookRef.current]);
+
+      const getGithubData = async (changeQuery = {}) => {
+        if (loading) return { data: [], total_count: 0 };
+        setLoading(true);
+        try {
+          const query = {
+            ...defaultQuery,
+            ...changeQuery,
+          };
+          const res = await getHotProjects(query);
+          const { items, total_count } = res;
+          const chunkSize = isMobile ? 2 : 10;
+          const data = chunkArray(items, chunkSize, query.page);
+          setLoading(false);
+          return { data, total_count };
+        } catch (error) {
+          alert("Error fetching data from Github API");
+          setLoading(false);
+          return { data: [], total_count: 0 };
+        }
       };
 
       const init = async () => {
-        const { data, total_count } = await getGithubData();
+        const { data, total_count } = await getGithubData({ page: 1 });
         setPages(data);
-        totalRef.current = Math.ceil(total_count / 12 + 2);
+        if (total_count > 0) {
+          const mobileDataPages = Math.ceil(total_count / 2);
+          const desktopDataPages = Math.ceil(total_count / 10);
+          const newTotalPage = isMobile
+            ? mobileDataPages + 2
+            : desktopDataPages + 2;
+          console.log(newTotalPage, "newTotalPage");
+          totalPageRef.current = newTotalPage;
+        }
+        setDataPage(2);
       };
 
       useEffect(() => {
         init();
-      }, []);
+      }, [isMobile]);
+
+      useEffect(() => {
+        if (
+          currentPage > prevCurrentPageRef.current &&
+          currentPage >= pages.length - (isMobile ? 1 : 2)
+        ) {
+          getGithubData({ page: dataPage }).then(({ data }) => {
+            if (data && data.length > 0) {
+              setPages((p) => [...p, ...data]);
+              setDataPage((p) => p + 1);
+            }
+          });
+        }
+        prevCurrentPageRef.current = currentPage;
+      }, [currentPage]);
+
+      const allPages = [
+        { key: "cover", type: "cover" },
+        ...pages,
+        { key: "bottom", type: "bottom" },
+      ];
 
       return (
         <>
-          <div>
-            <button onClick={prevPage}>&larr; 上一页 &nbsp;&nbsp;&nbsp;</button>
-            <button onClick={nextPage}>下一页 &rarr;</button>
-          </div>
+          {!isMobile && (
+            <div>
+              <button onClick={prevPage}>
+                &larr; {t("prevPage")} &nbsp;&nbsp;&nbsp;
+              </button>
+              <button onClick={nextPage}>{t("nextPage")} &rarr;</button>
+            </div>
+          )}
 
-          {/* book渲染区 */}
-          <div className="book-container" ref={bookRef}>
-            <div
-              key={"cover"}
-              className={`page-container ${currentPage > 1 ? "left" : "right"}`}
-              style={{ zIndex: currentPage > 1 ? 0 : pages.length + 1 }}
-            >
-              <BookCover />
-            </div>
-            {pages.map((item, index) => (
-              <div
-                key={item.key}
-                className={`page-container ${
-                  currentPage > index + 2 ? "left" : "right"
-                }`}
-                style={{
-                  zIndex:
-                    currentPage > index + 2 ? index + 1 : pages.length - index,
-                }}
-              >
-                <BookPage items={item.data} />
-              </div>
-            ))}
-            <div
-              key={"bottom"}
-              className={`page-container ${
-                currentPage === totalRef.current ? "left" : "right"
-              }`}
-              style={{
-                zIndex: currentPage === totalRef.current ? pages.length + 1 : 0,
-              }}
-            >
-              <BookBottom />
-            </div>
+          <div
+            className={`book-container ${isMobile ? "mobile" : ""}`}
+            ref={bookRef}
+          >
+            {isMobile ? (
+              allPages.map((page, index) => (
+                <div
+                  key={page.key}
+                  className={`page-container ${
+                    currentPage > index + 1 ? "flipped" : ""
+                  }`}
+                  style={{ zIndex: allPages.length - index }}
+                >
+                  {page.type === "cover" && <BookCover />}
+                  {page.type === "bottom" && <BookBottom />}
+                  {page.type !== "cover" && page.type !== "bottom" && (
+                    <BookPage items={page.data} />
+                  )}
+                </div>
+              ))
+            ) : (
+              <>
+                <div
+                  key={"cover"}
+                  className={`page-container ${
+                    currentPage > 1 ? "left" : "right"
+                  }`}
+                  style={{ zIndex: currentPage > 1 ? 0 : pages.length + 1 }}
+                >
+                  <BookCover />
+                </div>
+                {pages.map((item, index) => (
+                  <div
+                    key={item.key}
+                    className={`page-container ${
+                      currentPage > index + 2 ? "left" : "right"
+                    }`}
+                    style={{
+                      zIndex:
+                        currentPage > index + 2
+                          ? index + 1
+                          : pages.length - index,
+                    }}
+                  >
+                    <BookPage items={item.data} />
+                  </div>
+                ))}
+                <div
+                  key={"bottom"}
+                  className={`page-container ${
+                    currentPage === totalPageRef.current ? "left" : "right"
+                  }`}
+                  style={{
+                    zIndex:
+                      currentPage === totalPageRef.current
+                        ? pages.length + 1
+                        : 0,
+                  }}
+                >
+                  <BookBottom />
+                </div>
+              </>
+            )}
           </div>
         </>
       );
     }
 
     function Header() {
+      const { language, setLanguage, t } = useContext(LanguageContext);
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+      useEffect(() => {
+        const handleResize = () => {
+          setIsMobile(window.innerWidth < 768);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
+
       return (
         <div className="header-bg">
-          <div></div>
+          {!isMobile && (
+            <div>
+              <select
+                onChange={(e) => setLanguage(e.target.value)}
+                value={language}
+              >
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+              </select>
+            </div>
+          )}
         </div>
+      );
+    }
+
+    function LanguageFAB() {
+      const { language, setLanguage } = useContext(LanguageContext);
+      const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+      useEffect(() => {
+        const handleResize = () => {
+          setIsMobile(window.innerWidth < 768);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+      }, []);
+
+      if (!isMobile) return null;
+
+      const toggleLanguage = () => {
+        setLanguage(language === "en" ? "zh" : "en");
+      };
+
+      return (
+        <button className="language-fab" onClick={toggleLanguage}>
+          {language === "en" ? "中" : "En"}
+        </button>
       );
     }
 
@@ -342,6 +549,7 @@
         <div className="home-container">
           <Header />
           <Content />
+          <LanguageFAB />
         </div>
       );
     }
@@ -349,11 +557,13 @@
 
   <script type="text/babel">
     function About() {
-      return <div className="text-center text-6xl">📄 About Page</div>;
+      const { t } = useContext(LanguageContext);
+      return <div className="text-center text-6xl">📄 {t("about")}</div>;
     }
 
     function NotFound() {
-      return <div>🚫 404 Not Found</div>;
+      const { t } = useContext(LanguageContext);
+      return <div>🚫 {t("notFound")}</div>;
     }
   </script>
 
@@ -375,9 +585,11 @@
   <script type="text/babel">
     function App() {
       return (
-        <HashRouter>
-          <Outlet />
-        </HashRouter>
+        <LanguageProvider>
+          <HashRouter>
+            <Outlet />
+          </HashRouter>
+        </LanguageProvider>
       );
     }
 
